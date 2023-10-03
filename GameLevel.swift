@@ -398,13 +398,13 @@ class GameLevel {
         }
     }
     
-    func init_snack(bite : String, num_cheesy_bites : Int, cheesy_bites : inout [Snack], scene : SKScene) {
+    func init_snack(bite : String, points : Int, num_cheesy_bites : Int, cheesy_bites : inout [Snack], scene : SKScene) {
         for _ in 0..<num_cheesy_bites {
             
             let size = CGSize(width: scene.size.width / 14, height: scene.size.height / 14)
             let bite_image = bite
             
-            let cheesy_bite = Snack(bite: bite_image, size: size, z_pos: z_pos_snacks)
+            let cheesy_bite = Snack(bite: bite_image, points: points_cheesy_bite, size: size, z_pos: z_pos_snacks)
             
             cheesy_bite.add_childs(scene: scene)
 
@@ -414,7 +414,7 @@ class GameLevel {
             
             cheesy_bite.set_pos(pos: CGPoint(x: pos_x, y: pos_y))
             cheesy_bite.set_vel(vel_x: -background_speed, vel_y: 0)
-            
+            cheesy_bite.points_snack = points
             cheesy_bites.append(cheesy_bite)
         }
     }
@@ -521,15 +521,15 @@ class GameLevel {
     }
     
     func add_snacks(scene : SKScene) {
-        init_snack(bite : CHEESY_BITE_IMAGE, num_cheesy_bites : num_cheesy_bites, cheesy_bites : &cheesy_bites, scene : scene)
+        init_snack(bite : CHEESY_BITE_IMAGE, points: points_cheesy_bite, num_cheesy_bites : num_cheesy_bites, cheesy_bites : &cheesy_bites, scene : scene)
         
-        init_snack(bite : PAPRIKA_IMAGE, num_cheesy_bites : num_paprikas, cheesy_bites : &paprikas, scene : scene)
+        init_snack(bite : PAPRIKA_IMAGE, points: points_paprika, num_cheesy_bites : num_paprikas, cheesy_bites : &paprikas, scene : scene)
         
-        init_snack(bite : BROCCOLI_IMAGE, num_cheesy_bites : num_broccolis, cheesy_bites : &broccolis, scene : scene)
+        init_snack(bite : BROCCOLI_IMAGE, points: points_broccoli, num_cheesy_bites : num_broccolis, cheesy_bites : &broccolis, scene : scene)
         
-        init_snack(bite : CUCUMBER_IMAGE, num_cheesy_bites : num_cucumbers, cheesy_bites : &cucumbers, scene : scene)
+        init_snack(bite : CUCUMBER_IMAGE, points: points_cucumber, num_cheesy_bites : num_cucumbers, cheesy_bites : &cucumbers, scene : scene)
         
-        init_snack(bite : BEGGIN_IMAGE, num_cheesy_bites : num_beggin_strips, cheesy_bites : &beggin_strips, scene : scene)
+        init_snack(bite : BEGGIN_IMAGE, points: points_beggin_strip, num_cheesy_bites : num_beggin_strips, cheesy_bites : &beggin_strips, scene : scene)
         
         // Move beggin strips out of bounds
         for strip in beggin_strips {
@@ -549,7 +549,7 @@ class GameLevel {
                     play_sound_api(scene: scene, sound: [eat_sound1])
                 }
                 
-                gameScore += points_cucumber
+                gameScore += cucumber.points_snack
             }
         }
     }

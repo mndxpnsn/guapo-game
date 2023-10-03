@@ -175,4 +175,4 @@ let MAIN_MENU_BUTTON_PRESSED_4 = "ocean_level_button_pressed_bitmap_cropped"
 let MAIN_MENU_BUTTON_GRAY_2 = "beach_level_button_grey"
 let MAIN_MENU_BUTTON_GRAY_3 = "trip_level_button_grey"
 let MAIN_MENU_BUTTON_GRAY_4 = "ocean_level_button_grey"
-let LEVEL_UNLOCK_GUARD = 200
+let LEVEL_UNLOCK_GUARD = 100

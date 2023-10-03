@@ -212,9 +212,11 @@ class Frito : GameObject {
 }
 
 class Snack : GameObject {
-    init(bite : String, size : CGSize, z_pos : CGFloat) {
+    var points_snack : Int
+    
+    init(bite : String, points : Int, size : CGSize, z_pos : CGFloat) {
+        self.points_snack = points
         super.init()
-        
         self.add_image(image: bite)
         
         let factor = 1.0 - (self.images[0].size.height) / (self.height / 2)
