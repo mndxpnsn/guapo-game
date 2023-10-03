@@ -63,3 +63,42 @@ let misty_sound_appearing = SKAction.playSoundFileNamed("misty_sounds.wav", wait
 let sun_popup_sound = SKAction.playSoundFileNamed("sun_popup_sound.wav", waitForCompletion: true)
 let bubbles_sounds = SKAction.playSoundFileNamed("bubble_sounds.wav", waitForCompletion: false)
 let blowfish_sound = SKAction.playSoundFileNamed("tutti_4.wav", waitForCompletion: false)
+
+let FRITO_IMAGE_1 = "frito_bitmap_cropped"
+let FRITO_IMAGE_2 = "frito_bitmap_rotated_cropped"
+let FRITO_OCEAN_1 = "frito_snorkel_bitmap_cropped"
+let FRITO_OCEAN_2 = "frito_snorkel_hit_bitmap_rotated_cropped"
+
+let BROWNIE_IMAGE_1 = "brownie1_bitmap_cropped"
+let BROWNIE_IMAGE_2 = "brownie2_bitmap_cropped"
+let BROWNIE_OCEAN_1 = "brownie_snorkel_bitmap_cropped"
+let BROWNIE_OCEAN_2 = "brownie_snorkel_bitmap_hit_cropped"
+
+let MISTY_IMAGE_1 = "misty_bitmap_cropped"
+let MISTY_IMAGE_2 = "misty_hit_bitmap_cropped"
+let MISTY_IMAGE_3 = "misty_bitmap_cropped_rotated"
+let MISTY_IMAGE_4 = "misty_hit_bitmap_cropped_rotated"
+let MISTY_OCEAN_1 = "misty_withsnorkel_bitmap_cropped"
+let MISTY_OCEAN_2 = "misty_withsnorkel_hit_bitmap_cropped"
+let MISTY_OCEAN_3 = "misty_withsnorkel_bitmap_cropped_rotated"
+let MISTY_OCEAN_4 = "misty_withsnorkel_hit_bitmap_cropped_rotated"
+
+let BIRD_IMAGE_WARA_1 = "warawara1_bitmap_custom_mod_cropped"
+let BIRD_IMAGE_WARA_2 = "warawara2_bitmap_custom_mod_cropped"
+let BIRD_IMAGE_WARA_3 = "warawara3_bitmap_custom_mod_cropped"
+
+let BIRD_IMAGE_SEAGULL_1 = "seagull1_bitmap_cropped_new"
+let BIRD_IMAGE_SEAGULL_2 = "seagull2_bitmap_cropped_new"
+let BIRD_IMAGE_SEAGULL_3 = "seagull3_bitmap_cropped_new"
+
+let BACKGROUND_STR_LEVEL_1 = "background_guapo_game_nr"
+let BACKGROUND_STR_LEVEL_2 = "beach_background_slide"
+let BACKGROUND_STR_LEVEL_3 = "background_guapo_game_level3_"
+let BACKGROUND_STR_LEVEL_4 = "background_guapogame_underwaterlevel_"
+
+let NUM_BACKGROUNDS_LEVEL_1 = 10
+let NUM_BACKGROUNDS_LEVEL_2 = 14
+let NUM_BACKGROUNDS_LEVEL_3 = 11
+let NUM_BACKGROUNDS_LEVEL_4 = 5
+
+let BUBBLE_IMAGE_STR = "bubble_bitmap_cropped"

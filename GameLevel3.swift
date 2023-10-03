@@ -12,7 +12,7 @@ import GameplayKit
 
 class GameLevel3: SKScene {
     var base = GameLevel()
-    var num_backgrounds : Int = 11
+    var num_backgrounds : Int = NUM_BACKGROUNDS_LEVEL_3
     
     override func update(_ currentTime: TimeInterval) {
         base.update(scene: self)
@@ -21,30 +21,30 @@ class GameLevel3: SKScene {
     override func didMove(to view: SKView) {
         base.didMove(scene: self)
         var images = [String]()
-        images.append("frito_bitmap_cropped")
-        images.append("frito_bitmap_rotated_cropped")
+        images.append(FRITO_IMAGE_1)
+        images.append(FRITO_IMAGE_2)
         
         base.init_images_frito(images: images, height: self.size.height, width: self.size.width)
-        base.init_background(scene: self, num_backgrounds: num_backgrounds, string1: "background_guapo_game_level3_")
+        base.init_background(scene: self, num_backgrounds: num_backgrounds, string1: BACKGROUND_STR_LEVEL_3)
         
         var images_brownie = [String]()
-        images_brownie.append("brownie1_bitmap_cropped")
-        images_brownie.append("brownie2_bitmap_cropped")
+        images_brownie.append(BROWNIE_IMAGE_1)
+        images_brownie.append(BROWNIE_IMAGE_2)
         
         base.init_images_brownie(images: images_brownie, height: self.size.height, width: self.size.width)
         
         var images_misty = [String]()
-        images_misty.append("misty_bitmap_cropped")
-        images_misty.append("misty_hit_bitmap_cropped")
-        images_misty.append("misty_bitmap_cropped_rotated")
-        images_misty.append("misty_hit_bitmap_cropped_rotated")
+        images_misty.append(MISTY_IMAGE_1)
+        images_misty.append(MISTY_IMAGE_2)
+        images_misty.append(MISTY_IMAGE_3)
+        images_misty.append(MISTY_IMAGE_4)
         base.init_images_misty(images: images_misty, height: self.size.height, width: self.size.width)
         
         var bird_images = [String]()
         
-        bird_images.append("warawara1_bitmap_custom_mod_cropped")
-        bird_images.append("warawara2_bitmap_custom_mod_cropped")
-        bird_images.append("warawara3_bitmap_custom_mod_cropped")
+        bird_images.append(BIRD_IMAGE_WARA_1)
+        bird_images.append(BIRD_IMAGE_WARA_2)
+        bird_images.append(BIRD_IMAGE_WARA_3)
         
         base.add_birds(images: bird_images)
     }
