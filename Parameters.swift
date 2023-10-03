@@ -83,6 +83,12 @@ let MISTY_OCEAN_2 = "misty_withsnorkel_hit_bitmap_cropped"
 let MISTY_OCEAN_3 = "misty_withsnorkel_bitmap_cropped_rotated"
 let MISTY_OCEAN_4 = "misty_withsnorkel_hit_bitmap_cropped_rotated"
 
+let PLAYER_IMAGE_1 = "guapo_1_bitmap_cropped"
+let PLAYER_IMAGE_2 = "guapo_2_bitmap_cropped"
+let PLAYER_IMAGE_HIT = "guapo_3_bitmap_cropped"
+let PLAYER_SNORKEL = "guapo_snorkelandscubatank_unhit"
+let PLAYER_SNORKEL_HIT = "guapo_snorkelandscubatank_hit"
+
 let BIRD_IMAGE_WARA_1 = "warawara1_bitmap_custom_mod_cropped"
 let BIRD_IMAGE_WARA_2 = "warawara2_bitmap_custom_mod_cropped"
 let BIRD_IMAGE_WARA_3 = "warawara3_bitmap_custom_mod_cropped"
@@ -90,6 +96,39 @@ let BIRD_IMAGE_WARA_3 = "warawara3_bitmap_custom_mod_cropped"
 let BIRD_IMAGE_SEAGULL_1 = "seagull1_bitmap_cropped_new"
 let BIRD_IMAGE_SEAGULL_2 = "seagull2_bitmap_cropped_new"
 let BIRD_IMAGE_SEAGULL_3 = "seagull3_bitmap_cropped_new"
+
+let JELLY_IMAGE_1 = "jelly_fish_bitmap_cropped1"
+let JELLY_IMAGE_2 = "jelly_fish_bitmap_cropped2"
+let JELLY_IMAGE_3 = "jelly_fish_bitmap_cropped3"
+
+let FISH_IMAGE_1 = "fish5_bitmap_cropped"
+let FISH_IMAGE_2 = "fish6_bitmap_cropped"
+
+let FISH_IMAGE_2A = "fish3_bitmap_cropped"
+let FISH_IMAGE_2B = "fish4_bitmap_cropped"
+
+let FISH_IMAGE_3A = "fish8_bitmap_cropped"
+let FISH_IMAGE_3B = "fish9_bitmap_cropped"
+
+let FISH_IMAGE_4A = "fish14b_bitmap_cropped_resized_purple"
+let FISH_IMAGE_4B = "fish14bb_bitmap_cropped_resized_purple"
+
+let FISH_IMAGE_5A = "fish12_bitmap_cropped"
+let FISH_IMAGE_5B = "fish12b_bitmap_cropped"
+
+let FISH_IMAGE_6A = "yellowfish_facingright_raw"
+let FISH_IMAGE_6B = "yellowfish_facingright_raw2"
+
+let BLOW_FISH_IMAGE_1 = "fish10_bitmap_cropped"
+let BLOW_FISH_IMAGE_2 = "fish10b_bitmap_cropped"
+let BLOW_FISH_IMAGE_3 = "fish11_bitmap_cropped"
+let BLOW_FISH_IMAGE_4 = "fish11b_bitmap_cropped"
+
+let CHEESY_BITE_IMAGE = "cheesy_bite_resized"
+let PAPRIKA_IMAGE = "paprika_bitmap_cropped"
+let BROCCOLI_IMAGE = "broccoli_bitmap_cropped"
+let CUCUMBER_IMAGE = "cucumber_bitmap_cropped"
+let BEGGIN_IMAGE = "beggin_strip_cropped"
 
 let BACKGROUND_STR_LEVEL_1 = "background_guapo_game_nr"
 let BACKGROUND_STR_LEVEL_2 = "beach_background_slide"
@@ -102,3 +141,38 @@ let NUM_BACKGROUNDS_LEVEL_3 = 11
 let NUM_BACKGROUNDS_LEVEL_4 = 5
 
 let BUBBLE_IMAGE_STR = "bubble_bitmap_cropped"
+
+let HIGH_SCORE_ID_1 = "HighScoreLevel1Saved"
+let HIGH_SCORE_ID_2 = "HighScoreLevel2Saved"
+let HIGH_SCORE_ID_3 = "HighScoreLevel3Saved"
+let HIGH_SCORE_ID_4 = "HighScoreLevel4Saved"
+
+let LEVEL_ID_1 = 1
+let LEVEL_ID_2 = 2
+let LEVEL_ID_3 = 3
+let LEVEL_ID_4 = 4
+
+let GAME_MUTED = "gameMuted"
+let GAME_FONT = "AvenirNext-Bold"
+let LABEL_FONT = "Helvetica"
+
+let BACKGROUND_START_SCREEN = "background_guapo_game_startscreen2"
+
+let LEVELS_STR = "Levels"
+let HIGHSCORE_STR = "High Score"
+let SOUND_ON_IMAGE_STR = "volume_on"
+let SOUND_OFF_IMAGE_STR = "volume_off"
+
+let MAIN_MENU_BUTTON_NOTPRESSED_1 = "aruba_level_button_not_pressed_bitmap_cropped"
+let MAIN_MENU_BUTTON_PRESSED_1 = "aruba_level_button_pressed_bitmap_cropped"
+let MAIN_MENU_BUTTON_NOTPRESSED_2 = "beach_level_button_not_pressed_bitmap_cropped"
+let MAIN_MENU_BUTTON_PRESSED_2 = "beach_level_button_pressed_bitmap_cropped"
+let MAIN_MENU_BUTTON_NOTPRESSED_3 = "trip_level_button_not_pressed_bitmap_cropped"
+let MAIN_MENU_BUTTON_PRESSED_3 = "trip_level_button_pressed_bitmap_cropped"
+let MAIN_MENU_BUTTON_NOTPRESSED_4 = "ocean_level_button_not_pressed_bitmap_cropped"
+let MAIN_MENU_BUTTON_PRESSED_4 = "ocean_level_button_pressed_bitmap_cropped"
+
+let MAIN_MENU_BUTTON_GRAY_2 = "beach_level_button_grey"
+let MAIN_MENU_BUTTON_GRAY_3 = "trip_level_button_grey"
+let MAIN_MENU_BUTTON_GRAY_4 = "ocean_level_button_grey"
+let LEVEL_UNLOCK_GUARD = 200

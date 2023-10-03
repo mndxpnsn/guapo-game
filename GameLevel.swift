@@ -12,6 +12,8 @@ class GameLevel {
  
     var player = Player()
     
+    var level_id : Int = 0
+    
     var muted = false
     var highScore = 0
     var birds = [Bird]()
@@ -56,8 +58,9 @@ class GameLevel {
     
     var scene = SKScene()
 
-    func didMove(scene: SKScene) {
+    func didMove(scene: SKScene, id : Int) {
         
+        level_id = id
         play_sun_pop_up = true
         sun_popup_frame_counter = 0
         gameScore = 0
@@ -76,8 +79,9 @@ class GameLevel {
         startGame()
     }
     
-    func didMove_ocean(scene: SKScene) {
+    func didMove_ocean(scene: SKScene, id : Int) {
         
+        level_id = id
         play_sun_pop_up = true
         sun_popup_frame_counter = 0
         gameScore = 0
@@ -87,9 +91,6 @@ class GameLevel {
         
         self.scene = scene
                 
-        // Add jellyfish
-        add_jellyfish()
-        
         // Add Player
         add_player_ocean()
         
@@ -198,8 +199,8 @@ class GameLevel {
     }
     
     func init_fish(width : CGFloat, height : CGFloat) {
-        fish1.add_image(image: "fish5_bitmap_cropped")
-        fish1.add_image(image: "fish6_bitmap_cropped")
+        fish1.add_image(image: FISH_IMAGE_1)
+        fish1.add_image(image: FISH_IMAGE_2)
         fish1.set_height(height : height)
         fish1.set_width(width : width)
         fish1.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
@@ -207,8 +208,8 @@ class GameLevel {
         fish1.set_z_pos(z_pos: min_z_pos_fishes)
         fish1.add_childs(scene: scene)
         
-        fish2.add_image(image: "fish3_bitmap_cropped")
-        fish2.add_image(image: "fish4_bitmap_cropped")
+        fish2.add_image(image: FISH_IMAGE_2A)
+        fish2.add_image(image: FISH_IMAGE_2B)
         fish2.set_height(height : height)
         fish2.set_width(width : width)
         fish2.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
@@ -216,8 +217,8 @@ class GameLevel {
         fish2.set_z_pos(z_pos: min_z_pos_fishes)
         fish2.add_childs(scene: scene)
         
-        fish3.add_image(image: "fish8_bitmap_cropped")
-        fish3.add_image(image: "fish9_bitmap_cropped")
+        fish3.add_image(image: FISH_IMAGE_3A)
+        fish3.add_image(image: FISH_IMAGE_3B)
         fish3.set_height(height : height)
         fish3.set_width(width : width)
         fish3.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
@@ -225,8 +226,8 @@ class GameLevel {
         fish3.set_z_pos(z_pos: min_z_pos_fishes)
         fish3.add_childs(scene: scene)
         
-        fish4.add_image(image: "fish14b_bitmap_cropped_resized_purple")
-        fish4.add_image(image: "fish14bb_bitmap_cropped_resized_purple")
+        fish4.add_image(image: FISH_IMAGE_4A)
+        fish4.add_image(image: FISH_IMAGE_4B)
         fish4.set_height(height : height)
         fish4.set_width(width : width)
         fish4.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
@@ -234,8 +235,8 @@ class GameLevel {
         fish4.set_z_pos(z_pos: min_z_pos_fishes)
         fish4.add_childs(scene: scene)
         
-        fish5.add_image(image: "fish12_bitmap_cropped")
-        fish5.add_image(image: "fish12b_bitmap_cropped")
+        fish5.add_image(image: FISH_IMAGE_5A)
+        fish5.add_image(image: FISH_IMAGE_5B)
         fish5.set_height(height : height)
         fish5.set_width(width : width)
         fish5.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
@@ -243,8 +244,8 @@ class GameLevel {
         fish5.set_z_pos(z_pos: min_z_pos_fishes)
         fish5.add_childs(scene: scene)
         
-        fish6.add_image(image: "yellowfish_facingright_raw")
-        fish6.add_image(image: "yellowfish_facingright_raw2")
+        fish6.add_image(image: FISH_IMAGE_6A)
+        fish6.add_image(image: FISH_IMAGE_6B)
         fish6.set_height(height : height)
         fish6.set_width(width : width)
         fish6.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
@@ -252,10 +253,10 @@ class GameLevel {
         fish6.set_z_pos(z_pos: min_z_pos_fishes)
         fish6.add_childs(scene: scene)
         
-        blow_fish.add_image(image: "fish10_bitmap_cropped")
-        blow_fish.add_image(image: "fish10b_bitmap_cropped")
-        blow_fish.add_image_hit(image: "fish11_bitmap_cropped")
-        blow_fish.add_image_hit(image: "fish11b_bitmap_cropped")
+        blow_fish.add_image(image: BLOW_FISH_IMAGE_1)
+        blow_fish.add_image(image: BLOW_FISH_IMAGE_2)
+        blow_fish.add_image_hit(image: BLOW_FISH_IMAGE_3)
+        blow_fish.add_image_hit(image: BLOW_FISH_IMAGE_4)
         blow_fish.set_height(height : height)
         blow_fish.set_width(width : width)
         blow_fish.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
@@ -344,9 +345,21 @@ class GameLevel {
         scene.addChild(scoreLabel)
         
         let defaults = UserDefaults()
-        highScore = defaults.integer(forKey: "HighScoreLevel1Saved")
+        if level_id == LEVEL_ID_1 {
+            highScore = defaults.integer(forKey: HIGH_SCORE_ID_1)
+        }
+        if level_id == LEVEL_ID_2 {
+            highScore = defaults.integer(forKey: HIGH_SCORE_ID_2)
+        }
+        if level_id == LEVEL_ID_3 {
+            highScore = defaults.integer(forKey: HIGH_SCORE_ID_3)
+        }
+        if level_id == LEVEL_ID_4 {
+            highScore = defaults.integer(forKey: HIGH_SCORE_ID_4)
+        }
+
         is_already_unlocked = highScore >= unlock_level_points
-        muted = defaults.bool(forKey: "gameMuted")
+        muted = defaults.bool(forKey: GAME_MUTED)
     }
     
     func update_player_ocean() {
@@ -448,14 +461,14 @@ class GameLevel {
         }
     }
     
-    func add_jellyfish() {
+    func add_jellyfish(images : [String]) {
         for j in 0..<num_jellyfish {
             
             var jelly_images = [String]()
             
-            jelly_images.append("jelly_fish_bitmap_cropped1")
-            jelly_images.append("jelly_fish_bitmap_cropped2")
-            jelly_images.append("jelly_fish_bitmap_cropped3")
+            for x in images {
+                jelly_images.append(x)
+            }
             
             let z_pos = CGFloat(j) + min_z_pos_jelly_fish
             let size = CGSize(width: scene.size.width / 10, height: scene.size.height / 10)
@@ -472,11 +485,11 @@ class GameLevel {
         let size = CGSize(width: scene.size.width / 5, height: scene.size.height / 7.5)
         
         var player_images : [String] = [String]()
-        player_images.append("guapo_1_bitmap_cropped")
-        player_images.append("guapo_2_bitmap_cropped")
+        player_images.append(PLAYER_IMAGE_1)
+        player_images.append(PLAYER_IMAGE_2)
         
         player = Player(images: player_images, size: size, z_pos: z_pos_player)
-        player.add_image_hit(image: "guapo_3_bitmap_cropped", size: size, z_pos: -1)
+        player.add_image_hit(image: PLAYER_IMAGE_HIT, size: size, z_pos: -1)
         player.add_childs(scene : scene)
         player.set_vel(vel_x: 0, vel_y: 0)
         player.set_pos(pos: CGPoint(x : scene.size.width / 5, y : scene.size.height / 2))
@@ -488,18 +501,18 @@ class GameLevel {
         let size = CGSize(width: scene.size.width / 5, height: scene.size.height / 7.5)
         
         var player_images : [String] = [String]()
-        player_images.append("guapo_snorkelandscubatank_unhit")
+        player_images.append(PLAYER_SNORKEL)
         
         
         player = Player(images: player_images, size: size, z_pos: z_pos_player)
-        player.add_image_hit(image: "guapo_snorkelandscubatank_hit", size: size, z_pos: -1)
+        player.add_image_hit(image: PLAYER_SNORKEL_HIT, size: size, z_pos: -1)
         player.set_vel(vel_x: 0, vel_y: 0)
         player.set_pos(pos: CGPoint(x : scene.size.width / 5, y : scene.size.height / 2))
         player.set_height(height : scene.size.height)
         player.set_width(width : scene.size.width)
-        player.bubbles.add_bubble(image_id: "bubble_bitmap_cropped")
-        player.bubbles.add_bubble(image_id: "bubble_bitmap_cropped")
-        player.bubbles.add_bubble(image_id: "bubble_bitmap_cropped")
+        player.bubbles.add_bubble(image_id: BUBBLE_IMAGE_STR)
+        player.bubbles.add_bubble(image_id: BUBBLE_IMAGE_STR)
+        player.bubbles.add_bubble(image_id: BUBBLE_IMAGE_STR)
         
         for x in player.bubbles.bubbles {
             scene.addChild(x)
@@ -508,15 +521,15 @@ class GameLevel {
     }
     
     func add_snacks(scene : SKScene) {
-        init_snack(bite : "cheesy_bite_resized", num_cheesy_bites : num_cheesy_bites, cheesy_bites : &cheesy_bites, scene : scene)
+        init_snack(bite : CHEESY_BITE_IMAGE, num_cheesy_bites : num_cheesy_bites, cheesy_bites : &cheesy_bites, scene : scene)
         
-        init_snack(bite : "paprika_bitmap_cropped", num_cheesy_bites : num_paprikas, cheesy_bites : &paprikas, scene : scene)
+        init_snack(bite : PAPRIKA_IMAGE, num_cheesy_bites : num_paprikas, cheesy_bites : &paprikas, scene : scene)
         
-        init_snack(bite : "broccoli_bitmap_cropped", num_cheesy_bites : num_broccolis, cheesy_bites : &broccolis, scene : scene)
+        init_snack(bite : BROCCOLI_IMAGE, num_cheesy_bites : num_broccolis, cheesy_bites : &broccolis, scene : scene)
         
-        init_snack(bite : "cucumber_bitmap_cropped", num_cheesy_bites : num_cucumbers, cheesy_bites : &cucumbers, scene : scene)
+        init_snack(bite : CUCUMBER_IMAGE, num_cheesy_bites : num_cucumbers, cheesy_bites : &cucumbers, scene : scene)
         
-        init_snack(bite : "beggin_strip_cropped", num_cheesy_bites : num_beggin_strips, cheesy_bites : &beggin_strips, scene : scene)
+        init_snack(bite : BEGGIN_IMAGE, num_cheesy_bites : num_beggin_strips, cheesy_bites : &beggin_strips, scene : scene)
         
         // Move beggin strips out of bounds
         for strip in beggin_strips {
@@ -663,11 +676,7 @@ class GameLevel {
             brownie.hit = true
 
             if muted == false && brownie.play_hit_sound {
-                let hit_brownie = SKSpriteNode()
-                scene.addChild(hit_brownie)
-
-                let hit_brownie_biteSequence = SKAction.sequence([brownie_sound])
-                hit_brownie.run(hit_brownie_biteSequence)
+                play_sound_api(scene: scene, sound: [brownie_sound])
                 brownie.play_hit_sound = false
             }
         }
@@ -725,7 +734,7 @@ class GameLevel {
                 }
                 
                 self.currentGameState = gameState.afterGame
-                runGameOver()
+                runGameOver(high_score_id: HIGH_SCORE_ID_4)
             }
         }
     }
@@ -769,7 +778,16 @@ class GameLevel {
                 }
                 
                 self.currentGameState = gameState.afterGame
-                runGameOver()
+                
+                if(level_id == LEVEL_ID_1) {
+                    runGameOver(high_score_id: HIGH_SCORE_ID_1)
+                }
+                if(level_id == LEVEL_ID_2) {
+                    runGameOver(high_score_id: HIGH_SCORE_ID_2)
+                }
+                if(level_id == LEVEL_ID_3) {
+                    runGameOver(high_score_id: HIGH_SCORE_ID_3)
+                }
             }
         }
     }
@@ -820,11 +838,11 @@ class GameLevel {
         }
     }
     
-    func runGameOver() {
+    func runGameOver(high_score_id : String) {
         
         if gameScore > highScore {
             let defaults = UserDefaults()
-            defaults.set(gameScore, forKey: "HighScoreLevel1Saved")
+            defaults.set(gameScore, forKey: high_score_id)
         }
         
         player.set_z_pos(z_pos: -1)

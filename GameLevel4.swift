@@ -20,7 +20,7 @@ class GameLevel4: SKScene {
     }
     
     override func didMove(to view: SKView) {
-        base.didMove_ocean(scene: self)
+        base.didMove_ocean(scene: self, id : LEVEL_ID_4)
 
         base.add_bubbles(bubbles_char: base.player.bubbles, bubble_image: BUBBLE_IMAGE_STR)
 
@@ -63,6 +63,14 @@ class GameLevel4: SKScene {
         base.init_images_misty(images: images_misty, height: self.size.height, width: self.size.width)
         
         base.init_background(scene: self, num_backgrounds: num_backgrounds, string1: BACKGROUND_STR_LEVEL_4)
+        
+        var jelly_images = [String]()
+        
+        jelly_images.append(JELLY_IMAGE_1)
+        jelly_images.append(JELLY_IMAGE_2)
+        jelly_images.append(JELLY_IMAGE_3)
+        
+        base.add_jellyfish(images : jelly_images)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
