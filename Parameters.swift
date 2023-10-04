@@ -134,12 +134,14 @@ let BACKGROUND_STR_LEVEL_1 = "background_guapo_game_nr"
 let BACKGROUND_STR_LEVEL_2 = "beach_background_slide"
 let BACKGROUND_STR_LEVEL_3 = "background_guapo_game_level3_"
 let BACKGROUND_STR_LEVEL_4 = "background_guapogame_underwaterlevel_"
+let BACKGROUND_STR_LEVEL_5 = "background_tuttigame_nr1"
 let BACKGROUND_OPAQUE_STR = "black_background"
 
 let NUM_BACKGROUNDS_LEVEL_1 = 10
 let NUM_BACKGROUNDS_LEVEL_2 = 14
 let NUM_BACKGROUNDS_LEVEL_3 = 11
 let NUM_BACKGROUNDS_LEVEL_4 = 5
+let NUM_BACKGROUNDS_LEVEL_5 = 18
 
 let BUBBLE_IMAGE_STR = "bubble_bitmap_cropped"
 
@@ -147,11 +149,13 @@ let HIGH_SCORE_ID_1 = "HighScoreLevel1Saved"
 let HIGH_SCORE_ID_2 = "HighScoreLevel2Saved"
 let HIGH_SCORE_ID_3 = "HighScoreLevel3Saved"
 let HIGH_SCORE_ID_4 = "HighScoreLevel4Saved"
+let HIGH_SCORE_ID_5 = "HighScoreLevel5Saved"
 
 let LEVEL_ID_1 = 1
 let LEVEL_ID_2 = 2
 let LEVEL_ID_3 = 3
 let LEVEL_ID_4 = 4
+let LEVEL_ID_5 = 5
 
 let GAME_MUTED = "gameMuted"
 let GAME_FONT = "AvenirNext-Bold"
@@ -172,8 +176,11 @@ let MAIN_MENU_BUTTON_NOTPRESSED_3 = "trip_level_button_not_pressed_bitmap_croppe
 let MAIN_MENU_BUTTON_PRESSED_3 = "trip_level_button_pressed_bitmap_cropped"
 let MAIN_MENU_BUTTON_NOTPRESSED_4 = "ocean_level_button_not_pressed_bitmap_cropped"
 let MAIN_MENU_BUTTON_PRESSED_4 = "ocean_level_button_pressed_bitmap_cropped"
+let MAIN_MENU_BUTTON_NOTPRESSED_5 = "ocean_level_button_not_pressed_bitmap_cropped"
+let MAIN_MENU_BUTTON_PRESSED_5 = "ocean_level_button_pressed_bitmap_cropped"
 
 let MAIN_MENU_BUTTON_GRAY_2 = "beach_level_button_grey"
 let MAIN_MENU_BUTTON_GRAY_3 = "trip_level_button_grey"
 let MAIN_MENU_BUTTON_GRAY_4 = "ocean_level_button_grey"
+let MAIN_MENU_BUTTON_GRAY_5 = "ocean_level_button_grey"
 let LEVEL_UNLOCK_GUARD = 100

@@ -343,6 +343,9 @@ class GameLevel {
         if level_id == LEVEL_ID_4 {
             highScore = defaults.integer(forKey: HIGH_SCORE_ID_4)
         }
+        if level_id == LEVEL_ID_5 {
+            highScore = defaults.integer(forKey: HIGH_SCORE_ID_5)
+        }
 
         is_already_unlocked = highScore >= unlock_level_points
         muted = defaults.bool(forKey: GAME_MUTED)
@@ -783,6 +786,9 @@ class GameLevel {
                 }
                 if(level_id == LEVEL_ID_3) {
                     runGameOver(high_score_id: HIGH_SCORE_ID_3)
+                }
+                if(level_id == LEVEL_ID_5) {
+                    runGameOver(high_score_id: HIGH_SCORE_ID_5)
                 }
             }
         }

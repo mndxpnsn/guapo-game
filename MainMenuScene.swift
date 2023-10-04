@@ -23,15 +23,19 @@ class MainMenuScene: SKScene {
     let level_3_p = SKSpriteNode(imageNamed: MAIN_MENU_BUTTON_PRESSED_3)
     let level_4_np = SKSpriteNode(imageNamed: MAIN_MENU_BUTTON_NOTPRESSED_4)
     let level_4_p = SKSpriteNode(imageNamed: MAIN_MENU_BUTTON_PRESSED_4)
+    let level_5_np = SKSpriteNode(imageNamed: MAIN_MENU_BUTTON_NOTPRESSED_5)
+    let level_5_p = SKSpriteNode(imageNamed: MAIN_MENU_BUTTON_PRESSED_5)
     
     let level_2_grey = SKSpriteNode(imageNamed: MAIN_MENU_BUTTON_GRAY_2)
     let level_3_grey = SKSpriteNode(imageNamed: MAIN_MENU_BUTTON_GRAY_3)
     let level_4_grey = SKSpriteNode(imageNamed: MAIN_MENU_BUTTON_GRAY_4)
+    let level_5_grey = SKSpriteNode(imageNamed: MAIN_MENU_BUTTON_GRAY_5)
     
     let level_1_score = SKLabelNode(fontNamed: GAME_FONT)
     let level_2_score = SKLabelNode(fontNamed: GAME_FONT)
     let level_3_score = SKLabelNode(fontNamed: GAME_FONT)
     let level_4_score = SKLabelNode(fontNamed: GAME_FONT)
+    let level_5_score = SKLabelNode(fontNamed: GAME_FONT)
     
     var label = SKLabelNode(fontNamed: LABEL_FONT)
 
@@ -55,11 +59,15 @@ class MainMenuScene: SKScene {
     var start_level_4_touched = false
     var start_level_4 = false
     var start_level_4_scene = false
+    var start_level_5 = false
+    var start_level_5_scene = false
+    var start_level_5_touched = false
     
     var highScoreNumberLevel1 = 0
     var highScoreNumberLevel2 = 0
     var highScoreNumberLevel3 = 0
     var highScoreNumberLevel4 = 0
+    var highScoreNumberLevel5 = 0
     
     override func didMove(to view: SKView) {
         
@@ -74,12 +82,10 @@ class MainMenuScene: SKScene {
         volume_off.position = CGPoint(x: self.size.width - self.size.width/12, y: self.size.height/2 + self.size.height*1.9/5/2)
         volume_off.zPosition = 2
         
-        
         volume_on.setScale(1)
         volume_on.size = CGSize(width: width, height: height)
         volume_on.position = volume_off.position
         volume_on.zPosition = -1
-        
         
         let defaults = UserDefaults()
         muted = defaults.bool(forKey: GAME_MUTED)
@@ -105,22 +111,17 @@ class MainMenuScene: SKScene {
         background.zPosition = 0
         self.addChild(background)
         
-        
         levels_text.text = LEVELS_STR
         levels_text.fontSize = 80
         levels_text.fontColor = SKColor.gray
         levels_text.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.85 + self.size.height/4)
-        levels_text.zPosition = 1
-
         levels_text.zPosition = 1
         self.addChild(levels_text)
         
         high_score_text.text = HIGHSCORE_STR
         high_score_text.fontSize = 80
         high_score_text.fontColor = SKColor.gray
-        high_score_text.position = CGPoint(x: self.size.width/2 + self.size.width/8, y: self.size.height/2 * 0.85 + self.size.height/4)
-        high_score_text.zPosition = 1
-
+        high_score_text.position = CGPoint(x: self.size.width / 2 + self.size.width / 8, y: self.size.height / 2 * 0.85 + self.size.height / 4)
         high_score_text.zPosition = 1
         self.addChild(high_score_text)
         
@@ -128,12 +129,13 @@ class MainMenuScene: SKScene {
         highScoreNumberLevel2 = defaults.integer(forKey: HIGH_SCORE_ID_2)
         highScoreNumberLevel3 = defaults.integer(forKey: HIGH_SCORE_ID_3)
         highScoreNumberLevel4 = defaults.integer(forKey: HIGH_SCORE_ID_4)
+        highScoreNumberLevel5 = defaults.integer(forKey: HIGH_SCORE_ID_5)
 
-        let width_button = self.size.width/5
-        let height_button = self.size.height/16
+        let width_button = self.size.width / 5
+        let height_button = self.size.height / 16
         
         level_1_np.size = CGSize(width: width_button, height: height_button)
-        level_1_np.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.73 + self.size.height/4)
+        level_1_np.position = CGPoint(x: self.size.width / 2 - self.size.width / 8, y: self.size.height / 2 * 0.73 + self.size.height / 4)
         level_1_np.zPosition = 2
         self.addChild(level_1_np)
         
@@ -150,118 +152,14 @@ class MainMenuScene: SKScene {
 
         level_1_score.zPosition = 1
         self.addChild(level_1_score)
+ 
+        place_level_button(score_prev_level : highScoreNumberLevel1, fac : 0.58, level_np : level_2_np, level_p : level_2_p, level_gray : level_2_grey, high_score : highScoreNumberLevel2, score_label : level_2_score)
         
-        if highScoreNumberLevel1 >= unlock_level_points {
-            level_2_np.size = CGSize(width: width_button, height: height_button)
-            level_2_np.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.58 + self.size.height/4)
-            level_2_np.zPosition = 2
-            self.addChild(level_2_np)
-            
-            level_2_p.size = CGSize(width: width_button, height: height_button)
-            level_2_p.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.58 + self.size.height/4)
-            level_2_p.zPosition = -1
-            self.addChild(level_2_p)
-        }
-        else {
-            level_2_np.size = CGSize(width: width_button, height: height_button)
-            level_2_np.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.58 + self.size.height/4)
-            level_2_np.zPosition = -1
-            self.addChild(level_2_np)
-            
-            level_2_grey.size = CGSize(width: width_button, height: height_button)
-            level_2_grey.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.58 + self.size.height/4)
-            level_2_grey.zPosition = 2
-            self.addChild(level_2_grey)
-            
-            level_2_p.size = CGSize(width: width_button, height: height_button)
-            level_2_p.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.58 + self.size.height/4)
-            level_2_p.zPosition = -1
-            self.addChild(level_2_p)
-        }
+        place_level_button(score_prev_level : highScoreNumberLevel2, fac : 0.43, level_np : level_3_np, level_p : level_3_p, level_gray : level_3_grey, high_score : highScoreNumberLevel3, score_label : level_3_score)
         
-        level_2_score.text = String(highScoreNumberLevel2)
-        level_2_score.fontSize = 70
-        level_2_score.fontColor = SKColor.gray
-        level_2_score.position = CGPoint(x: self.size.width/2 + self.size.width/8, y: self.size.height/2 * 0.55 + self.size.height/4)
-        level_2_score.zPosition = 1
-        self.addChild(level_2_score)
+        place_level_button(score_prev_level : highScoreNumberLevel3, fac : 0.28, level_np : level_4_np, level_p : level_4_p, level_gray : level_4_grey, high_score : highScoreNumberLevel4, score_label : level_4_score)
         
-        if highScoreNumberLevel2 >= unlock_level_points {
-            level_3_np.size = CGSize(width: width_button, height: height_button)
-            level_3_np.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.43 + self.size.height/4)
-            level_3_np.zPosition = 2
-            self.addChild(level_3_np)
-            
-            level_3_p.size = CGSize(width: width_button, height: height_button)
-            level_3_p.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.43 + self.size.height/4)
-            level_3_p.zPosition = -1
-            self.addChild(level_3_p)
-        }
-        else {
-            level_3_np.size = CGSize(width: width_button, height: height_button)
-            level_3_np.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.43 + self.size.height/4)
-            level_3_np.zPosition = -1
-            self.addChild(level_3_np)
-            
-            
-            level_3_grey.size = CGSize(width: width_button, height: height_button)
-            level_3_grey.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.43 + self.size.height/4)
-            level_3_grey.zPosition = 2
-            self.addChild(level_3_grey)
-            
-            level_3_p.size = CGSize(width: width_button, height: height_button)
-            level_3_p.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.43 + self.size.height/4)
-            level_3_p.zPosition = -1
-            self.addChild(level_3_p)
-        }
-
-        
-        level_3_score.text = String(highScoreNumberLevel3)
-        level_3_score.fontSize = 70
-        level_3_score.fontColor = SKColor.gray
-        level_3_score.position = CGPoint(x: self.size.width/2 + self.size.width/8, y: self.size.height/2 * 0.4 + self.size.height/4)
-        level_3_score.zPosition = 1
-
-        level_3_score.zPosition = 1
-        self.addChild(level_3_score)
-        
-        if highScoreNumberLevel3 >= unlock_level_points {
-            level_4_np.size = CGSize(width: width_button, height: height_button)
-            level_4_np.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.28 + self.size.height/4)
-            level_4_np.zPosition = 2
-            self.addChild(level_4_np)
-            
-            level_4_p.size = CGSize(width: width_button, height: height_button)
-            level_4_p.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.28 + self.size.height/4)
-            level_4_p.zPosition = -1
-            self.addChild(level_4_p)
-        }
-        else {
-            level_4_np.size = CGSize(width: width_button, height: height_button)
-            level_4_np.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.28 + self.size.height/4)
-            level_4_np.zPosition = -1
-            self.addChild(level_4_np)
-            
-            level_4_grey.size = CGSize(width: width_button, height: height_button)
-            level_4_grey.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.28 + self.size.height/4)
-            level_4_grey.zPosition = 2
-            self.addChild(level_4_grey)
-            
-            level_4_p.size = CGSize(width: width_button, height: height_button)
-            level_4_p.position = CGPoint(x: self.size.width/2 - self.size.width/8, y: self.size.height/2 * 0.28 + self.size.height/4)
-            level_4_p.zPosition = -1
-            self.addChild(level_4_p)
-        }
-        
-        level_4_score.text = String(highScoreNumberLevel4)
-        level_4_score.fontSize = 70
-        level_4_score.fontColor = SKColor.gray
-        level_4_score.position = CGPoint(x: self.size.width/2 + self.size.width/8, y: self.size.height/2 * 0.25 + self.size.height/4)
-        level_4_score.zPosition = 1
-
-        level_4_score.zPosition = 1
-        self.addChild(level_4_score)
-        
+        place_level_button(score_prev_level : highScoreNumberLevel3, fac : 0.13, level_np : level_5_np, level_p : level_5_p, level_gray : level_5_grey, high_score : highScoreNumberLevel5, score_label : level_5_score)
     }
     
     //Force the mute button to change by running update()
@@ -275,41 +173,11 @@ class MainMenuScene: SKScene {
             volume_on.zPosition = 2
         }
         
-        if start_level_1_scene {
-            let sceneToMoveTo = GameLevel1(size: self.size)
-            sceneToMoveTo.scaleMode = self.scaleMode
-            let myTransition = SKTransition.fade(withDuration: 3.0)
-            self.view!.presentScene(sceneToMoveTo, transition: myTransition)
-            
-            start_level_1_scene = false
-        }
-        
-        if start_level_2_scene {
-            let sceneToMoveTo = GameLevel2(size: self.size)
-            sceneToMoveTo.scaleMode = self.scaleMode
-            let myTransition = SKTransition.fade(withDuration: 3.0)
-            self.view!.presentScene(sceneToMoveTo, transition: myTransition)
-            
-            start_level_2_scene = false
-        }
-        
-        if start_level_3_scene {
-            let sceneToMoveTo = GameLevel3(size: self.size)
-            sceneToMoveTo.scaleMode = self.scaleMode
-            let myTransition = SKTransition.fade(withDuration: 3.0)
-            self.view!.presentScene(sceneToMoveTo, transition: myTransition)
-            
-            start_level_3_scene = false
-        }
-        
-        if start_level_4_scene {
-            let sceneToMoveTo = GameLevel4(size: self.size)
-            sceneToMoveTo.scaleMode = self.scaleMode
-            let myTransition = SKTransition.fade(withDuration: 3.0)
-            self.view!.presentScene(sceneToMoveTo, transition: myTransition)
-            
-            start_level_4_scene = false
-        }
+        start_scene(start : &start_level_1_scene, GameLevel : GameLevel1(size: self.size))
+        start_scene(start : &start_level_2_scene, GameLevel : GameLevel2(size: self.size))
+        start_scene(start : &start_level_3_scene, GameLevel : GameLevel3(size: self.size))
+        start_scene(start : &start_level_4_scene, GameLevel : GameLevel4(size: self.size))
+        start_scene(start : &start_level_5_scene, GameLevel : GameLevel5(size: self.size))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -318,7 +186,7 @@ class MainMenuScene: SKScene {
             
             let pointOfTouch = touch.location(in: self)
             
-            let position = CGPoint(x: self.size.width - 2*self.size.width/12, y: self.size.height/2 + self.size.height*1.5/5/2)
+            let position = CGPoint(x: self.size.width - 2 * self.size.width / 12, y: self.size.height / 2 + self.size.height * 1.5 / 10)
             
             if pointOfTouch.x > position.x  && pointOfTouch.y > position.y && muted == false {
                 volume_on.zPosition = 2
@@ -338,48 +206,11 @@ class MainMenuScene: SKScene {
             }
             else {
                 
-                let touched_button_1_x = pointOfTouch.x > level_1_np.position.x - level_1_np.size.width/2 && pointOfTouch.x < level_1_np.position.x + level_1_np.size.width/2
-                
-                let touched_button_1_y = pointOfTouch.y > level_1_np.position.y - level_1_np.size.height/2 && pointOfTouch.y < level_1_np.position.y + level_1_np.size.height/2
-                
-                if touched_button_1_x && touched_button_1_y {
-                    level_1_np.zPosition = -1
-                    level_1_p.zPosition = 2
-                    start_level_1_touched = true
-                }
-                
-                let touched_button_2_x = pointOfTouch.x > level_2_np.position.x - level_2_np.size.width/2 && pointOfTouch.x < level_2_np.position.x + level_2_np.size.width/2
-                
-                let touched_button_2_y = pointOfTouch.y > level_2_np.position.y - level_2_np.size.height/2 && pointOfTouch.y < level_2_np.position.y + level_2_np.size.height/2
-                
-                if touched_button_2_x && touched_button_2_y && highScoreNumberLevel1 >= unlock_level_points {
-                    level_2_np.zPosition = -1
-                    level_2_p.zPosition = 2
-                    level_2_grey.zPosition = -1
-                    start_level_2_touched = true
-                }
-                
-                let touched_button_3_x = pointOfTouch.x > level_3_np.position.x - level_3_np.size.width/2 && pointOfTouch.x < level_3_np.position.x + level_3_np.size.width/2
-                
-                let touched_button_3_y = pointOfTouch.y > level_3_np.position.y - level_3_np.size.height/2 && pointOfTouch.y < level_3_np.position.y + level_3_np.size.height/2
-                
-                if touched_button_3_x && touched_button_3_y  && highScoreNumberLevel2 >= unlock_level_points {
-                    level_3_np.zPosition = -1
-                    level_3_p.zPosition = 2
-                    level_3_grey.zPosition = -1
-                    start_level_3_touched = true
-                }
-                
-                let touched_button_4_x = pointOfTouch.x > level_4_np.position.x - level_4_np.size.width/2 && pointOfTouch.x < level_4_np.position.x + level_4_np.size.width/2
-                
-                let touched_button_4_y = pointOfTouch.y > level_4_np.position.y - level_4_np.size.height/2 && pointOfTouch.y < level_4_np.position.y + level_4_np.size.height/2
-                
-                if touched_button_4_x && touched_button_4_y && highScoreNumberLevel3 >= unlock_level_points{
-                    level_4_np.zPosition = -1
-                    level_4_p.zPosition = 2
-                    level_4_grey.zPosition = -1
-                    start_level_4_touched = true
-                }
+                touched_button(pointOfTouch: pointOfTouch, level_np : level_1_np, level_p : level_1_p, start_level_touched : &start_level_1_touched)
+                touched_button(pointOfTouch: pointOfTouch, level_np : level_2_np, level_p : level_2_p, start_level_touched : &start_level_2_touched)
+                touched_button(pointOfTouch: pointOfTouch, level_np : level_3_np, level_p : level_3_p, start_level_touched : &start_level_3_touched)
+                touched_button(pointOfTouch: pointOfTouch, level_np : level_4_np, level_p : level_4_p, start_level_touched : &start_level_4_touched)
+                touched_button(pointOfTouch: pointOfTouch, level_np : level_5_np, level_p : level_5_p, start_level_touched : &start_level_5_touched)
             }
         }
     }
@@ -405,5 +236,74 @@ class MainMenuScene: SKScene {
             start_level_4 = true
             start_level_4_scene = true
         }
+        if start_level_5_touched {
+            start_level_5 = true
+            start_level_5_scene = true
+        }
+    }
+    
+    func start_scene(start : inout Bool, GameLevel : SKScene) {
+        if start {
+            let sceneToMoveTo = GameLevel
+            sceneToMoveTo.scaleMode = self.scaleMode
+            let myTransition = SKTransition.fade(withDuration: 3.0)
+            self.view!.presentScene(sceneToMoveTo, transition: myTransition)
+            
+            start = false
+        }
+    }
+    
+    func touched_button(pointOfTouch : CGPoint, level_np : SKSpriteNode, level_p : SKSpriteNode, start_level_touched : inout Bool) {
+        let touched_button_x = pointOfTouch.x > level_np.position.x - level_np.size.width / 2 && pointOfTouch.x < level_np.position.x + level_np.size.width / 2
+        
+        let touched_button_y = pointOfTouch.y > level_np.position.y - level_np.size.height / 2 && pointOfTouch.y < level_np.position.y + level_np.size.height / 2
+        
+        if touched_button_x && touched_button_y {
+            level_np.zPosition = -1
+            level_p.zPosition = 2
+            start_level_touched = true
+        }
+    }
+    
+    func place_level_button(score_prev_level : Int, fac : CGFloat, level_np : SKSpriteNode, level_p : SKSpriteNode, level_gray : SKSpriteNode, high_score : Int, score_label : SKLabelNode) {
+        
+        let width_button = self.size.width / 5
+        let height_button = self.size.height / 16
+        
+        if score_prev_level >= unlock_level_points {
+            level_np.size = CGSize(width: width_button, height: height_button)
+            level_np.position = CGPoint(x: self.size.width / 2 - self.size.width / 8, y: self.size.height / 2 * fac + self.size.height / 4)
+            level_np.zPosition = 2
+            self.addChild(level_np)
+            
+            level_p.size = CGSize(width: width_button, height: height_button)
+            level_p.position = CGPoint(x: self.size.width / 2 - self.size.width / 8, y: self.size.height / 2 * fac + self.size.height / 4)
+            level_p.zPosition = -1
+            self.addChild(level_p)
+        }
+        else {
+            level_np.size = CGSize(width: width_button, height: height_button)
+            level_np.position = CGPoint(x: self.size.width / 2 - self.size.width / 8, y: self.size.height / 2 * fac + self.size.height / 4)
+            level_np.zPosition = -1
+            self.addChild(level_np)
+            
+            level_gray.size = CGSize(width: width_button, height: height_button)
+            level_gray.position = CGPoint(x: self.size.width / 2 - self.size.width / 8, y: self.size.height / 2 * fac + self.size.height / 4)
+            level_gray.zPosition = 2
+            self.addChild(level_gray)
+            
+            level_p.size = CGSize(width: width_button, height: height_button)
+            level_p.position = CGPoint(x: self.size.width / 2 - self.size.width / 8, y: self.size.height / 2 * fac + self.size.height / 4)
+            level_p.zPosition = -1
+            self.addChild(level_p)
+        }
+        
+        score_label.text = String(high_score)
+        score_label.fontSize = 70
+        score_label.fontColor = SKColor.gray
+        score_label.position = CGPoint(x: self.size.width / 2 + self.size.width / 8, y: self.size.height / 2 * (fac - 0.03) + self.size.height / 4)
+        score_label.zPosition = 1
+        self.addChild(score_label)
     }
 }
+
