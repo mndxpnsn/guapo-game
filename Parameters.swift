@@ -134,6 +134,7 @@ let BACKGROUND_STR_LEVEL_1 = "background_guapo_game_nr"
 let BACKGROUND_STR_LEVEL_2 = "beach_background_slide"
 let BACKGROUND_STR_LEVEL_3 = "background_guapo_game_level3_"
 let BACKGROUND_STR_LEVEL_4 = "background_guapogame_underwaterlevel_"
+let BACKGROUND_OPAQUE_STR = "black_background"
 
 let NUM_BACKGROUNDS_LEVEL_1 = 10
 let NUM_BACKGROUNDS_LEVEL_2 = 14

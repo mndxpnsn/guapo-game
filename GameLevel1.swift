@@ -9,6 +9,7 @@ import Foundation
 import SpriteKit
 
 class GameLevel1 : SKScene {
+    
     var base = GameLevel()
     var num_backgrounds : Int = NUM_BACKGROUNDS_LEVEL_1
     

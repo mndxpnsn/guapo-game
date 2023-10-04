@@ -25,8 +25,8 @@ class GameLevel {
     var broccolis = [Snack]()
     
     var width_background : CGFloat = 0
-    var black_background_bot = SKSpriteNode(imageNamed: "black_background")
-    var black_background_top = SKSpriteNode(imageNamed: "black_background")
+    var black_background_bot = SKSpriteNode(imageNamed: BACKGROUND_OPAQUE_STR)
+    var black_background_top = SKSpriteNode(imageNamed: BACKGROUND_OPAQUE_STR)
     var backgrounds = [SKSpriteNode]()
     
     var frito = Frito()
@@ -60,35 +60,19 @@ class GameLevel {
 
     func didMove(scene: SKScene, id : Int) {
         
-        level_id = id
-        play_sun_pop_up = true
-        sun_popup_frame_counter = 0
-        gameScore = 0
-        bound_tracker = 1
         num_birds = 2
-        background_speed = scene.size.width / 400
-        
         self.scene = scene
         
         // Add Player
         add_player()
         
         // Init common data
-        init_common(scene : scene)
-        
-        startGame()
+        init_common(scene: scene, id: id)
     }
     
     func didMove_ocean(scene: SKScene, id : Int) {
         
-        level_id = id
-        play_sun_pop_up = true
-        sun_popup_frame_counter = 0
-        gameScore = 0
-        bound_tracker = 1
-        num_birds = 2
-        background_speed = scene.size.width / 400
-        
+        num_jellyfish = 2
         self.scene = scene
                 
         // Add Player
@@ -98,9 +82,7 @@ class GameLevel {
         init_fish(width: scene.size.width, height: scene.size.height)
         
         // Init common data
-        init_common(scene : scene)
-        
-        startGame()
+        init_common(scene: scene, id: id)
     }
     
     func update(scene : SKScene) {
@@ -144,9 +126,6 @@ class GameLevel {
         //Update score text
         scoreLabel.text = String(gameScore)
         
-        //Sun pop up
-        sun_pop_up()
-                
         if self.currentGameState == gameState.inGame {
             move_counter += 1
         }
@@ -306,7 +285,14 @@ class GameLevel {
         misty.add_childs(scene: scene)
     }
     
-    func init_common(scene : SKScene) {
+    func init_common(scene : SKScene, id : Int) {
+        
+        level_id = id
+        play_sun_pop_up = true
+        sun_popup_frame_counter = 0
+        gameScore = 0
+        bound_tracker = 1
+        background_speed = scene.size.width / 400
         
         let width = scene.size.width
         let height = scene.size.height
@@ -360,6 +346,17 @@ class GameLevel {
 
         is_already_unlocked = highScore >= unlock_level_points
         muted = defaults.bool(forKey: GAME_MUTED)
+
+        mute_bubbles(bubbles : player.bubbles, mute : muted)
+        mute_bubbles(bubbles : frito.bubbles, mute : muted)
+        mute_bubbles(bubbles : brownie.bubbles, mute : muted)
+        mute_bubbles(bubbles : misty.bubbles, mute : muted)
+        
+        startGame()
+    }
+    
+    func mute_bubbles(bubbles : Bubbles, mute : Bool) {
+        bubbles.is_muted = mute
     }
     
     func update_player_ocean() {
@@ -477,7 +474,6 @@ class GameLevel {
             jelly.add_childs(scene : scene)
 
             jellyfishes.append(jelly)
-            
         }
     }
     
