@@ -158,6 +158,7 @@ let LEVEL_ID_4 = 4
 let LEVEL_ID_5 = 5
 
 let GAME_MUTED = "gameMuted"
+let PLAYING = "playing"
 let GAME_FONT = "AvenirNext-Bold"
 let LABEL_FONT = "Helvetica"
 

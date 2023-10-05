@@ -47,6 +47,10 @@ class GameLevel1 : SKScene {
         bird_images.append(BIRD_IMAGE_WARA_3)
         
         base.add_birds(images: bird_images)
+        
+        if base.playing {
+            base.get_state()
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

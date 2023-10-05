@@ -97,9 +97,10 @@ class Player : GameObject {
     }
     
     func add_image_hit(image : String, size : CGSize, z_pos : CGFloat) {
-        self.image_hit = SKSpriteNode(imageNamed: image)
-        self.image_hit.size = size
-        self.image_hit.zPosition = z_pos
+        let image_hit = SKSpriteNode(imageNamed: image)
+        image_hit.size = size
+        image_hit.zPosition = z_pos
+        self.images_hit.append(image_hit)
     }
     
     func update_pos_api() {
@@ -108,7 +109,10 @@ class Player : GameObject {
     
     func set_pos_api(pos : CGPoint) {
         self.set_pos(pos: pos)
-        self.image_hit.position = pos
+        
+        for x in images_hit {
+            x.position = pos
+        }
     }
 }
 
@@ -185,7 +189,6 @@ class Brownie : GameObject {
         
         self.appeared = self.images[0].position.x > 0 && self.images[0].position.x < scene.size.width
     }
-    
 }
 
 class Frito : GameObject {
@@ -250,6 +253,17 @@ class Misty : GameObject {
         self.set_vel(vel_x: vx, vel_y: vy)
     }
     
+    func set_pos_api(pos : CGPoint) {
+        if !top {
+            self.images[0].position = pos
+            self.images[1].position = pos
+        }
+        else {
+            self.images[2].position = pos
+            self.images[3].position = pos
+        }
+    }
+    
     func pop_misty(height : CGFloat, speed : CGFloat) {
         
         if !self.hit && top {
@@ -299,5 +313,12 @@ class BlowFish : GameObject {
         else {
             self.update_pos_hit(scene : scene, bk_speed : bk_speed)
         }
+    }
+}
+
+class Button : GameObject {
+    
+    override init() {
+        super.init()
     }
 }

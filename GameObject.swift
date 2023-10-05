@@ -15,8 +15,6 @@ class GameObject {
     var play_sound: Bool
     var play_hit_sound : Bool
     var images : [SKSpriteNode]
-    var image : SKSpriteNode
-    var image_hit : SKSpriteNode
     var images_hit : [SKSpriteNode]
     var image_names : [String]
     var bird_counter = 1
@@ -28,6 +26,8 @@ class GameObject {
     var hit : Bool
     var appeared : Bool
     var bubbles : Bubbles
+    var pos_x : CGFloat
+    var pos_y : CGFloat
     
     init() {
         self.z_pos = -1
@@ -36,8 +36,6 @@ class GameObject {
         self.play_sound = true
         self.play_hit_sound = true
         self.images = [SKSpriteNode]()
-        self.image = SKSpriteNode()
-        self.image_hit = SKSpriteNode()
         self.images_hit = [SKSpriteNode]()
         self.image_names = [String]()
         self.width = 0
@@ -45,6 +43,8 @@ class GameObject {
         self.hit = false
         self.appeared = false
         self.bubbles = Bubbles()
+        self.pos_x = -10000
+        self.pos_y = 0
     }
     
     func set_height(height : CGFloat) {
@@ -65,6 +65,17 @@ class GameObject {
         }
     }
     
+    func set_z_pos_hit(z_pos : CGFloat) {
+        self.z_pos = z_pos
+        for image in images {
+            image.zPosition = -1
+        }
+        for image in images_hit {
+            image.zPosition = -1
+        }
+        self.images_hit[0].zPosition = z_pos
+    }
+    
     func update_pos() {
         for image in images {
             image.position.x += self.vel_x
@@ -73,6 +84,9 @@ class GameObject {
         for image in images_hit {
             image.position = images[0].position
         }
+        
+        self.pos_x = images[0].position.x
+        self.pos_y = images[0].position.y
     }
     
     func set_pos(pos : CGPoint) {
@@ -97,24 +111,6 @@ class GameObject {
         self.play_sound = play_s
     }
     
-    func set_image(image : SKSpriteNode) {
-        self.image = image
-    }
-    
-    func set_image_hit(image : SKSpriteNode) {
-        self.image_hit = image
-    }
-    
-    func get_image() -> SKSpriteNode {
-        
-        return self.image
-    }
-    
-    func get_image_hit() -> SKSpriteNode {
-        
-        return self.image_hit
-    }
-    
     func add_image(image : String) {
         self.images.append(SKSpriteNode(imageNamed: image))
         self.image_names.append(image)
@@ -133,8 +129,6 @@ class GameObject {
             x.removeFromParent()
             scene.addChild(x)
         }
-        self.image_hit.removeFromParent()
-        scene.addChild(self.image_hit)
     }
     
     func birdi_on_top(image_id : Int) {
@@ -164,17 +158,12 @@ class GameObject {
             self.images[image].zPosition = -1
         }
     }
-    
-    func set_z_pos_api(z_pos : CGFloat) {
-        self.set_z_pos(z_pos: z_pos)
-    }
-    
-    func set_z_pos(image : SKSpriteNode, z_pos : CGFloat) {
-        self.image.zPosition = z_pos
-    }
-    
+ 
     func set_size(size : CGSize) {
         for x in self.images {
+            x.size = size
+        }
+        for x in self.images_hit {
             x.size = size
         }
     }
@@ -192,6 +181,8 @@ class GameObject {
             self.images[0].position.y = 0.75 * scene.size.height
             self.vel_y = -self.vel_y
         }
+        self.pos_x = images[0].position.x
+        self.pos_y = images[0].position.y
     }
     
     func update_pos(scene : SKScene, bk_speed : CGFloat) {
@@ -221,6 +212,9 @@ class GameObject {
         for x in self.images_hit {
             x.position = self.images[0].position
         }
+        
+        self.pos_x = images[0].position.x
+        self.pos_y = images[0].position.y
         
         advance_bird_counter()
     }
@@ -253,8 +247,12 @@ class GameObject {
             x.position = self.images[0].position
         }
         
+        self.pos_x = images[0].position.x
+        self.pos_y = images[0].position.y
+        
         advance_bird_counter()
     }
+    
     func update_pos_hit(scene : SKScene, bk_speed : CGFloat) {
         
         self.images[0].position.x += self.vel_x
@@ -283,6 +281,9 @@ class GameObject {
             x.position = self.images[0].position
         }
         
+        self.pos_x = images[0].position.x
+        self.pos_y = images[0].position.y
+        
         advance_bird_counter_hit()
     }
     
@@ -303,6 +304,9 @@ class GameObject {
             self.images[0].position.y = self.height / 2 - self.height / 4
             self.vel_y = -self.vel_y
         }
+        
+        self.pos_x = images[0].position.x
+        self.pos_y = images[0].position.y
     }
     
     func update_pos3() {
@@ -316,7 +320,12 @@ class GameObject {
             x.position = self.images[0].position
         }
         
-        self.image_hit.position = self.images[0].position
+        for x in self.images_hit {
+            x.position = self.images[0].position
+        }
+        
+        self.pos_x = images[0].position.x
+        self.pos_y = images[0].position.y
         
         advance_bird_counter()
     }
@@ -339,6 +348,9 @@ class GameObject {
         for x in self.images {
             x.position = self.images[0].position
         }
+        
+        self.pos_x = images[0].position.x
+        self.pos_y = images[0].position.y
     }
     
     func update_pos(scene : SKScene, at_screen : Int) {
@@ -359,6 +371,9 @@ class GameObject {
         for x in self.images {
             x.position = self.images[0].position
         }
+        
+        self.pos_x = images[0].position.x
+        self.pos_y = images[0].position.y
         
         advance_bird_counter()
     }

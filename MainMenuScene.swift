@@ -173,11 +173,11 @@ class MainMenuScene: SKScene {
             volume_on.zPosition = 2
         }
         
-        start_scene(start : &start_level_1_scene, GameLevel : GameLevel1(size: self.size))
-        start_scene(start : &start_level_2_scene, GameLevel : GameLevel2(size: self.size))
-        start_scene(start : &start_level_3_scene, GameLevel : GameLevel3(size: self.size))
-        start_scene(start : &start_level_4_scene, GameLevel : GameLevel4(size: self.size))
-        start_scene(start : &start_level_5_scene, GameLevel : GameLevel5(size: self.size))
+        start_scene(scene: self, start : &start_level_1_scene, GameLevel : GameLevel1(size: self.size))
+        start_scene(scene: self, start : &start_level_2_scene, GameLevel : GameLevel2(size: self.size))
+        start_scene(scene: self, start : &start_level_3_scene, GameLevel : GameLevel3(size: self.size))
+        start_scene(scene: self, start : &start_level_4_scene, GameLevel : GameLevel4(size: self.size))
+        start_scene(scene: self, start : &start_level_5_scene, GameLevel : GameLevel5(size: self.size))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -239,17 +239,6 @@ class MainMenuScene: SKScene {
         if start_level_5_touched {
             start_level_5 = true
             start_level_5_scene = true
-        }
-    }
-    
-    func start_scene(start : inout Bool, GameLevel : SKScene) {
-        if start {
-            let sceneToMoveTo = GameLevel
-            sceneToMoveTo.scaleMode = self.scaleMode
-            let myTransition = SKTransition.fade(withDuration: 3.0)
-            self.view!.presentScene(sceneToMoveTo, transition: myTransition)
-            
-            start = false
         }
     }
     

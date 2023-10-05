@@ -15,6 +15,7 @@ class GameLevel {
     var level_id : Int = 0
     
     var muted = false
+    var playing = false
     var highScore = 0
     var birds = [Bird]()
     var jellyfishes = [JellyFish]()
@@ -23,6 +24,8 @@ class GameLevel {
     var paprikas = [Snack]()
     var beggin_strips = [Snack]()
     var broccolis = [Snack]()
+    var continue_button = GameObject()
+    var restart_button = GameObject()
     
     var width_background : CGFloat = 0
     var black_background_bot = SKSpriteNode(imageNamed: BACKGROUND_OPAQUE_STR)
@@ -43,6 +46,7 @@ class GameLevel {
     var background_speed: CGFloat = 0
     
     var currentGameState = gameState.preGame
+    var playing_state = playingState.restarted
     var num_backgrounds = 10
     
     var is_already_unlocked = false
@@ -156,6 +160,72 @@ class GameLevel {
             
             update_backgrounds(scene : scene, backgrounds : backgrounds, vel_x : -background_speed)
         }
+    }
+    
+    func save_backgrounds() {
+        
+        var counter = 1
+        
+        for x in backgrounds {
+            let defaults = UserDefaults()
+            
+            defaults.set(x.position.x, forKey: "LEVEL_1" + "backgrounds" + String(counter))
+            counter += 1
+        }
+    }
+    
+    func get_backgrounds() {
+        var counter = 1
+        
+        for x in backgrounds {
+            let defaults = UserDefaults()
+            
+            x.position.x = CGFloat(defaults.float(forKey: "LEVEL_1" + "backgrounds" + String(counter)))
+            counter += 1
+        }
+    }
+    
+    func save_state() {
+        save_object(object: player, prefix: String(level_id) + "LEVEL_1_player")
+        save_object(object : brownie, prefix : String(level_id) + "LEVEL_1_brownie")
+        save_object(object : frito, prefix : String(level_id) + "LEVEL_1_frito")
+        save_misty(object : misty, prefix : String(level_id) + "LEVEL_1_misty")
+        save_snacks(snacks: cheesy_bites, prefix: String(level_id) + "LEVEL_1_CHEESY")
+        save_snacks(snacks: paprikas, prefix: String(level_id) + "LEVEL_1_PAPRIKA")
+        save_snacks(snacks: cucumbers, prefix: String(level_id) + "LEVEL_1_CUCUMBERS")
+        save_snacks(snacks: beggin_strips, prefix: String(level_id) + "LEVEL_1_BEGGIN")
+        save_snacks(snacks: broccolis, prefix: String(level_id) + "LEVEL_1_BROCCOLIS")
+        save_object(object: fish1, prefix: String(level_id) + "FISH_1")
+        save_object(object: fish2, prefix: String(level_id) + "FISH_2")
+        save_object(object: fish3, prefix: String(level_id) + "FISH_3")
+        save_object(object: fish4, prefix: String(level_id) + "FISH_4")
+        save_object(object: fish5, prefix: String(level_id) + "FISH_5")
+        save_object(object: fish6, prefix: String(level_id) + "FISH_6")
+        save_object(object: blow_fish, prefix: String(level_id) + "BLOWFISH")
+        save_backgrounds()
+        let defaults = UserDefaults()
+        defaults.set(gameScore, forKey: String(level_id) + "SCORE_ID")
+        defaults.set(play_misty_guard, forKey: String(level_id) + "MISTY_GUARD")
+    }
+    
+    func get_state() {
+        get_brownie_object(object: &brownie, prefix: String(level_id) + "LEVEL_1_brownie")
+        get_frito_object(object : &frito, prefix : String(level_id) + "LEVEL_1_frito")
+        get_misty_object(object: &misty, prefix: String(level_id) + "LEVEL_1_misty")
+        get_player_object(object: &player, prefix: String(level_id) + "LEVEL_1_player")
+        get_snacks(snacks: &cheesy_bites, prefix: String(level_id) + "LEVEL_1_CHEESY")
+        get_snacks(snacks: &paprikas, prefix: String(level_id) + "LEVEL_1_PAPRIKA")
+        get_snacks(snacks: &cucumbers, prefix: String(level_id) + "LEVEL_1_CUCUMBERS")
+        get_snacks(snacks: &beggin_strips, prefix: String(level_id) + "LEVEL_1_BEGGIN")
+        get_snacks(snacks: &broccolis, prefix: String(level_id) + "LEVEL_1_BROCCOLIS")
+        get_object(object: &fish1, prefix: String(level_id) + "FISH_1")
+        get_object(object: &fish2, prefix: String(level_id) + "FISH_2")
+        get_object(object: &fish3, prefix: String(level_id) + "FISH_3")
+        get_object(object: &fish4, prefix: String(level_id) + "FISH_4")
+        get_object(object: &fish5, prefix: String(level_id) + "FISH_5")
+        get_object(object: &fish6, prefix: String(level_id) +  "FISH_6")
+        get_blowfish(object: &blow_fish, prefix: String(level_id) + "BLOWFISH")
+        get_backgrounds()
     }
     
     func update_snacks() {
@@ -299,6 +369,20 @@ class GameLevel {
         
         add_snacks(scene : scene)
         
+        continue_button.add_image(image: "continue_button_not_pressed_bitmap_cropped")
+        continue_button.add_image_hit(image: "continue_button_pressed_bitmap_cropped")
+        continue_button.set_pos(pos: CGPoint(x: scene.size.width / 2 - continue_button.get_size().width / 2, y: scene.size.height / 2))
+        continue_button.set_z_pos(z_pos: -1)
+        continue_button.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
+        continue_button.add_childs(scene: scene)
+        
+        restart_button.add_image(image: "restart_button_not_pressed_bitmap_cropped")
+        restart_button.add_image_hit(image: "restart_button_pressed_bitmap_cropped")
+        restart_button.set_pos(pos: CGPoint(x: scene.size.width / 2 + restart_button.get_size().width / 2, y: scene.size.height / 2))
+        restart_button.set_z_pos(z_pos: -1)
+        restart_button.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
+        restart_button.add_childs(scene: scene)
+        
         pause_button.setScale(1)
         pause_button.size = CGSize(width: width / 28, height: height / 28)
         pause_button.position = CGPoint(x: width - width / 12, y: height / 2 + height * 1.9 / 5 / 2)
@@ -348,8 +432,13 @@ class GameLevel {
         }
 
         is_already_unlocked = highScore >= unlock_level_points
-        muted = defaults.bool(forKey: GAME_MUTED)
-
+        muted = defaults.bool(forKey: String(level_id) + GAME_MUTED)
+        playing = defaults.bool(forKey: String(level_id) + PLAYING)
+        if playing {
+            gameScore = defaults.integer(forKey: String(level_id) + "SCORE_ID")
+            play_misty_guard = defaults.integer(forKey: String(level_id) + "MISTY_GUARD")
+        }
+        
         mute_bubbles(bubbles : player.bubbles, mute : muted)
         mute_bubbles(bubbles : frito.bubbles, mute : muted)
         mute_bubbles(bubbles : brownie.bubbles, mute : muted)
@@ -733,7 +822,8 @@ class GameLevel {
                 }
                 
                 self.currentGameState = gameState.afterGame
-                runGameOver(high_score_id: HIGH_SCORE_ID_4)
+                
+                show_restart_continue()
             }
         }
     }
@@ -779,16 +869,16 @@ class GameLevel {
                 self.currentGameState = gameState.afterGame
                 
                 if(level_id == LEVEL_ID_1) {
-                    runGameOver(high_score_id: HIGH_SCORE_ID_1)
+                    show_restart_continue()
                 }
                 if(level_id == LEVEL_ID_2) {
-                    runGameOver(high_score_id: HIGH_SCORE_ID_2)
+                    show_restart_continue()
                 }
                 if(level_id == LEVEL_ID_3) {
-                    runGameOver(high_score_id: HIGH_SCORE_ID_3)
+                    show_restart_continue()
                 }
                 if(level_id == LEVEL_ID_5) {
-                    runGameOver(high_score_id: HIGH_SCORE_ID_5)
+                    show_restart_continue()
                 }
             }
         }
@@ -840,20 +930,49 @@ class GameLevel {
         }
     }
     
-    func runGameOver(high_score_id : String) {
-        
+    func run_continue(high_score_id: String, GameLevel : SKScene) {
         if gameScore > highScore {
             let defaults = UserDefaults()
             defaults.set(gameScore, forKey: high_score_id)
         }
         
         player.set_z_pos(z_pos: -1)
-        player.image_hit.zPosition = z_pos_player
+        player.set_z_pos_hit(z_pos: z_pos_player)
+        var start = true
+        start_scene(scene : scene, start : &start, GameLevel : GameLevel)
+    }
+    
+    func run_restart(high_score_id: String) {
+        runGameOver(high_score_id: high_score_id)
+    }
+    
+    func runGameOver(high_score_id : String) {
+        let defaults = UserDefaults()
+        
+        if gameScore > highScore {
+            defaults.set(gameScore, forKey: high_score_id)
+        }
+        
+        player.set_z_pos(z_pos: -1)
+        player.set_z_pos_hit(z_pos: z_pos_player)
+        
+        playing = false
+        defaults.set(playing, forKey: String(level_id) + PLAYING)
         
         let changeSceneAction = SKAction.run(changeScene)
         let waitToChangeScene = SKAction.wait(forDuration: 1)
         let changeSceneSequence = SKAction.sequence([waitToChangeScene, changeSceneAction])
         scene.run(changeSceneSequence)
+    }
+    
+    func show_restart_continue() {
+        
+        player.set_z_pos(z_pos: -1)
+        player.set_z_pos_hit(z_pos: z_pos_player)
+        continue_button.images[0].zPosition = 100
+        restart_button.images[0].zPosition = 100
+        
+        end_game()
     }
     
     func changeScene() {
@@ -866,6 +985,18 @@ class GameLevel {
     
     func startGame() {
         currentGameState = gameState.inGame
+        pause_button.zPosition = z_pos_pause
+        play_button.zPosition = -1
+    }
+    
+    func pause_game() {
+        currentGameState = gameState.gamePaused
+        pause_button.zPosition = -1
+        play_button.zPosition = z_pos_pause
+    }
+    
+    func end_game() {
+        currentGameState = gameState.afterGame
     }
     
     func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -879,14 +1010,13 @@ class GameLevel {
             for touch: AnyObject in touches {
                 let pointOfTouch = touch.location(in: scene)
                 
+                // Position defines the boundaries of the pause / play button
                 let position = CGPoint(x: scene.size.width - 2 * scene.size.width / 12, y: scene.size.height / 2 + scene.size.height * 1.5 / 10)
                 
                 let touch_in_game_area = pointOfTouch.x > 0 && pointOfTouch.x < scene.size.width && pointOfTouch.y > scene.size.height / 4 && pointOfTouch.y < 0.75 * scene.size.height
                 
                 if pointOfTouch.x > position.x && pointOfTouch.y > position.y {
-                    currentGameState = gameState.gamePaused
-                    pause_button.zPosition = -1
-                    play_button.zPosition = z_pos_pause
+                    pause_game()
                 }
                 else if touch_in_game_area {
                     player.set_pos_api(pos: pointOfTouch)
@@ -899,12 +1029,67 @@ class GameLevel {
             for touch: AnyObject in touches {
                 let pointOfTouch = touch.location(in: scene)
                 
-                let position = CGPoint(x: scene.size.width - 2*scene.size.width/12, y: scene.size.height/2 + scene.size.height*1.5/5/2)
+                let position = CGPoint(x: scene.size.width - 2 * scene.size.width / 12, y: scene.size.height / 2 + scene.size.height * 1.5 / 20)
                 
                 if pointOfTouch.x > position.x  && pointOfTouch.y > position.y {
-                    currentGameState = gameState.inGame
-                    pause_button.zPosition = z_pos_pause
-                    play_button.zPosition = -1
+                    startGame()
+                }
+            }
+        }
+        else if currentGameState == gameState.afterGame {
+            for touch: AnyObject in touches {
+                let point = touch.location(in: scene)
+                
+                let p1 = continue_button.images[0].position
+                let w1 = continue_button.images[0].size.width / 2
+                let h1 = continue_button.images[0].size.height / 2
+                let p2 = restart_button.images[0].position
+                let w2 = restart_button.images[0].size.width / 2
+                let h2 = restart_button.images[0].size.height / 2
+                if point.x > p1.x - w1 && point.x < p1.x + w1 && point.y > p1.y - h1 && point.y < p1.y + h1 {
+                    continue_button.images_hit[0].zPosition = 100
+                    continue_button.images[0].zPosition = -1
+                    let defaults = UserDefaults()
+                    playing = true
+                    defaults.set(playing, forKey: String(level_id) + PLAYING)
+                    save_state()
+                    if level_id == LEVEL_ID_1 {
+                        run_continue(high_score_id: HIGH_SCORE_ID_1, GameLevel: GameLevel1(size: scene.size))
+                    }
+                    if level_id == LEVEL_ID_2 {
+                        run_continue(high_score_id: HIGH_SCORE_ID_2, GameLevel: GameLevel2(size: scene.size))
+                    }
+                    if level_id == LEVEL_ID_3 {
+                        run_continue(high_score_id: HIGH_SCORE_ID_3, GameLevel: GameLevel3(size: scene.size))
+                    }
+                    if level_id == LEVEL_ID_4 {
+                        run_continue(high_score_id: HIGH_SCORE_ID_4, GameLevel: GameLevel4(size: scene.size))
+                    }
+                    if level_id == LEVEL_ID_5 {
+                        run_continue(high_score_id: HIGH_SCORE_ID_5, GameLevel: GameLevel5(size: scene.size))
+                    }
+                }
+                
+                if point.x > p2.x - w2 && point.x < p2.x + w2 && point.y > p2.y - h2 && point.y < p2.y + h2 {
+                    restart_button.images_hit[0].zPosition = 100
+                    restart_button.images[0].zPosition = -1
+                    let defaults = UserDefaults()
+                    defaults.set(false, forKey: String(level_id) + PLAYING)
+                    if level_id == LEVEL_ID_1 {
+                        run_restart(high_score_id: HIGH_SCORE_ID_1)
+                    }
+                    if level_id == LEVEL_ID_2 {
+                        run_restart(high_score_id: HIGH_SCORE_ID_2)
+                    }
+                    if level_id == LEVEL_ID_3 {
+                        run_restart(high_score_id: HIGH_SCORE_ID_3)
+                    }
+                    if level_id == LEVEL_ID_4 {
+                        run_restart(high_score_id: HIGH_SCORE_ID_4)
+                    }
+                    if level_id == LEVEL_ID_5 {
+                        run_restart(high_score_id: HIGH_SCORE_ID_5)
+                    }
                 }
             }
         }

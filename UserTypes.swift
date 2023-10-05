@@ -13,3 +13,8 @@ enum gameState {
     case afterGame
     case gamePaused
 }
+
+enum playingState {
+    case playing
+    case restarted
+}

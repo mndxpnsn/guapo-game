@@ -71,6 +71,10 @@ class GameLevel4: SKScene {
         jelly_images.append(JELLY_IMAGE_3)
         
         base.add_jellyfish(images : jelly_images)
+        
+        if base.playing {
+            base.get_state()
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
