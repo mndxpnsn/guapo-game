@@ -9,7 +9,7 @@ import Foundation
 import SpriteKit
 
 class GameLevel {
- 
+
     var player = Player()
     
     var level_id : Int = 0
@@ -26,7 +26,7 @@ class GameLevel {
     var broccolis = [Snack]()
     var continue_button = GameObject()
     var restart_button = GameObject()
-    
+    var flag = Flag()
     var width_background : CGFloat = 0
     var black_background_bot = SKSpriteNode(imageNamed: BACKGROUND_OPAQUE_STR)
     var black_background_top = SKSpriteNode(imageNamed: BACKGROUND_OPAQUE_STR)
@@ -51,7 +51,12 @@ class GameLevel {
     
     var is_already_unlocked = false
     var sun_popup_frame_counter = 0
+    var flag_popup_frame_counter = 0
+    var flag_counter = 1
     var play_sun_pop_up = true
+    var play_flag_pop_up = true
+    var start_thread = true
+    var start_save = true
 
     var move_counter = 0
     var is_up = true
@@ -59,6 +64,8 @@ class GameLevel {
     var r_o = CGPoint(x: 0, y: 0)
     
     var play_misty_guard = 20
+    var flag_freq = 50
+    var flag_num = 1
     
     var scene = SKScene()
 
@@ -94,8 +101,13 @@ class GameLevel {
         //Update score text
         scoreLabel.text = String(gameScore)
         
-        //Sun pop up
-        sun_pop_up()
+        if level_id != LEVEL_ID_5 {
+            //Sun pop up
+            sun_pop_up()
+        }
+        
+        // Flag pop up
+        flag_pop_up()
                 
         if self.currentGameState == gameState.inGame {
             move_counter += 1
@@ -137,6 +149,9 @@ class GameLevel {
         //Increase number of jellys in game
         update_num_jelly()
         
+        // Flag pop up
+        flag_pop_up()
+        
         if self.currentGameState == gameState.inGame {
             
             //Update player
@@ -145,7 +160,6 @@ class GameLevel {
             //Update positions of birds and detect overlap
             update_jellyfish()
             
-            // Update fish1
             update_fish()
             
             update_blow_fish()
@@ -165,22 +179,21 @@ class GameLevel {
     func save_backgrounds() {
         
         var counter = 1
+        let defaults = UserDefaults()
         
         for x in backgrounds {
-            let defaults = UserDefaults()
-            
-            defaults.set(x.position.x, forKey: "LEVEL_1" + "backgrounds" + String(counter))
+            defaults.set(x.position.x, forKey: String(level_id) + "backgrounds" + String(counter))
             counter += 1
         }
     }
     
     func get_backgrounds() {
+        
         var counter = 1
+        let defaults = UserDefaults()
         
         for x in backgrounds {
-            let defaults = UserDefaults()
-            
-            x.position.x = CGFloat(defaults.float(forKey: "LEVEL_1" + "backgrounds" + String(counter)))
+            x.position.x = CGFloat(defaults.float(forKey: String(level_id) + "backgrounds" + String(counter)))
             counter += 1
         }
     }
@@ -206,6 +219,7 @@ class GameLevel {
         let defaults = UserDefaults()
         defaults.set(gameScore, forKey: String(level_id) + "SCORE_ID")
         defaults.set(play_misty_guard, forKey: String(level_id) + "MISTY_GUARD")
+        defaults.set(flag_num, forKey: String(level_id) + "FLAG_NUM")
     }
     
     func get_state() {
@@ -383,6 +397,21 @@ class GameLevel {
         restart_button.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
         restart_button.add_childs(scene: scene)
         
+        if level_id != LEVEL_ID_5 {
+            flag.add_image(image: "flag_aruba_bitmap_cropped")
+            flag.set_pos(pos: CGPoint(x: scene.size.width / 2 + flag.get_size().width / 2, y: scene.size.height / 2))
+            flag.set_z_pos(z_pos: -1)
+            flag.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
+            flag.add_childs(scene: scene)
+        }
+        else {
+            flag.add_image(image: "flag_netherlands_bitmap_cropped")
+            flag.set_pos(pos: CGPoint(x: scene.size.width / 2 + flag.get_size().width / 2, y: scene.size.height / 2))
+            flag.set_z_pos(z_pos: -1)
+            flag.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
+            flag.add_childs(scene: scene)
+        }
+        
         pause_button.setScale(1)
         pause_button.size = CGSize(width: width / 28, height: height / 28)
         pause_button.position = CGPoint(x: width - width / 12, y: height / 2 + height * 1.9 / 5 / 2)
@@ -437,6 +466,7 @@ class GameLevel {
         if playing {
             gameScore = defaults.integer(forKey: String(level_id) + "SCORE_ID")
             play_misty_guard = defaults.integer(forKey: String(level_id) + "MISTY_GUARD")
+            flag_num = defaults.integer(forKey: String(level_id) + "FLAG_NUM")
         }
         
         mute_bubbles(bubbles : player.bubbles, mute : muted)
@@ -514,11 +544,11 @@ class GameLevel {
         
         for j in 0..<n {
             backgrounds[j].position.x += vel_x
-            if(backgrounds[j].position.x < -backgrounds[j].size.width && j > 0) {
-                backgrounds[j].position.x = backgrounds[j - 1].position.x + backgrounds[j - 1].size.width - backgrounds[j].size.width / 100
+            if(j > 0 && backgrounds[j - 1].position.x < 0) {
+                backgrounds[j].position.x = backgrounds[j - 1].position.x + backgrounds[j - 1].size.width - 10
             }
-            if(backgrounds[j].position.x < -backgrounds[j].size.width && j == 0) {
-                backgrounds[j].position.x = backgrounds[n - 1].position.x + backgrounds[n - 1].size.width - backgrounds[j].size.width / 100
+            if(j == n - 1 && backgrounds[j].position.x < 0) {
+                backgrounds[0].position.x = backgrounds[j].position.x + backgrounds[j].size.width - 10
             }
         }
     }
@@ -900,6 +930,69 @@ class GameLevel {
         }
     }
     
+    func flag_pop_up() {
+        
+        if gameScore == 0 {
+            if start_save {
+                start_save = false
+                
+                // Spawn thread to save state
+                class MyThread: Thread {
+                    var base : GameLevel
+                    init(base : GameLevel) {
+                        self.base = base
+                    }
+                    override func main() {
+                        base.save_state()
+                    }
+                }
+
+                let thread = MyThread(base : self)
+                thread.start()
+            }
+        }
+        
+        if gameScore >= flag_num * flag_freq && flag_popup_frame_counter <= num_frames_flag_popup {
+            
+            flag_popup_frame_counter += 1
+            
+            if muted == false && play_flag_pop_up {
+                play_sound_api(scene: scene, sound: [sun_popup_sound])
+                play_flag_pop_up = false
+            }
+            
+            flag.set_z_pos(z_pos: 100)
+            
+            if start_thread {
+                start_thread = false
+                
+                // Spawn thread to save state
+                class MyThread: Thread {
+                    var base : GameLevel
+                    init(base : GameLevel) {
+                        self.base = base
+                    }
+                    override func main() {
+                        base.save_state()
+                    }
+                }
+
+                let thread = MyThread(base : self)
+                thread.start()
+            }
+        }
+        else if flag_popup_frame_counter > num_frames_flag_popup {
+            
+            flag_num += 1
+            flag_popup_frame_counter = 0
+            play_flag_pop_up = true
+            start_thread = true
+            
+            //Reset sun popup zposition
+            flag.set_z_pos(z_pos: -1)
+        }
+    }
+    
     func update_num_birds() {
         if gameScore >= bound_tracker * num_points_when_birds_appear && birds.count < tot_num_birds {
             
@@ -1052,7 +1145,7 @@ class GameLevel {
                     let defaults = UserDefaults()
                     playing = true
                     defaults.set(playing, forKey: String(level_id) + PLAYING)
-                    save_state()
+                    
                     if level_id == LEVEL_ID_1 {
                         run_continue(high_score_id: HIGH_SCORE_ID_1, GameLevel: GameLevel1(size: scene.size))
                     }
@@ -1074,7 +1167,8 @@ class GameLevel {
                     restart_button.images_hit[0].zPosition = 100
                     restart_button.images[0].zPosition = -1
                     let defaults = UserDefaults()
-                    defaults.set(false, forKey: String(level_id) + PLAYING)
+                    playing = false
+                    defaults.set(playing, forKey: String(level_id) + PLAYING)
                     if level_id == LEVEL_ID_1 {
                         run_restart(high_score_id: HIGH_SCORE_ID_1)
                     }

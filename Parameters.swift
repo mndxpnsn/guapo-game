@@ -30,6 +30,7 @@ var bound_tracker = 1
 let num_screen_lengths_for_disp = 10
 let points_at_which_beggin_strips_appear = 50
 let num_frames_sun_popup = 180
+let num_frames_flag_popup = 180
 let bubble_vel_y = 5.0
 
 let pause_button = SKSpriteNode(imageNamed: "pause_button_bitmap_cropped")

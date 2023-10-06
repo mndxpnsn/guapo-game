@@ -322,3 +322,10 @@ class Button : GameObject {
         super.init()
     }
 }
+
+class Flag : GameObject {
+    
+    override init() {
+        super.init()
+    }
+}
