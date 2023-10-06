@@ -177,7 +177,7 @@ class Brownie : GameObject {
     func update_pos_api(scene : SKScene) {
         
         self.reflect(scene : scene)
-        self.update_pos(scene : scene, at_screen : 3)
+        self.update_pos(scene : scene, at_screen : 10)
         
         if hit {
             self.birdi_on_top(image_id: 1)
@@ -197,7 +197,7 @@ class Frito : GameObject {
     func update_pos_api(scene : SKScene) {
         
         self.reflect(scene : scene)
-        self.update_pos(scene : scene, at_screen : 3)
+        self.update_pos_rev(scene : scene, at_screen : -15)
         
         if hit {
             self.birdi_on_top(image_id: 1)

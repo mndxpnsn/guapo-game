@@ -178,11 +178,11 @@ let MAIN_MENU_BUTTON_NOTPRESSED_3 = "trip_level_button_not_pressed_bitmap_croppe
 let MAIN_MENU_BUTTON_PRESSED_3 = "trip_level_button_pressed_bitmap_cropped"
 let MAIN_MENU_BUTTON_NOTPRESSED_4 = "ocean_level_button_not_pressed_bitmap_cropped"
 let MAIN_MENU_BUTTON_PRESSED_4 = "ocean_level_button_pressed_bitmap_cropped"
-let MAIN_MENU_BUTTON_NOTPRESSED_5 = "ocean_level_button_not_pressed_bitmap_cropped"
-let MAIN_MENU_BUTTON_PRESSED_5 = "ocean_level_button_pressed_bitmap_cropped"
+let MAIN_MENU_BUTTON_NOTPRESSED_5 = "utreg_level_button_not_pressed_bitmap_cropped"
+let MAIN_MENU_BUTTON_PRESSED_5 = "utreg_level_button_pressed_bitmap_cropped"
 
 let MAIN_MENU_BUTTON_GRAY_2 = "beach_level_button_grey"
 let MAIN_MENU_BUTTON_GRAY_3 = "trip_level_button_grey"
 let MAIN_MENU_BUTTON_GRAY_4 = "ocean_level_button_grey"
-let MAIN_MENU_BUTTON_GRAY_5 = "ocean_level_button_grey"
+let MAIN_MENU_BUTTON_GRAY_5 = "utreg_level_button_grey"
 let LEVEL_UNLOCK_GUARD = 100

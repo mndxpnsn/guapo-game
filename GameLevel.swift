@@ -63,7 +63,7 @@ class GameLevel {
 
     var r_o = CGPoint(x: 0, y: 0)
     
-    var play_misty_guard = 20
+    var play_misty_guard = Int.random(in: 10..<40) + 20
     var flag_freq = 50
     var flag_num = 1
     
@@ -74,10 +74,8 @@ class GameLevel {
         num_birds = 2
         self.scene = scene
         
-        // Add Player
         add_player()
         
-        // Init common data
         init_common(scene: scene, id: id)
     }
     
@@ -86,13 +84,10 @@ class GameLevel {
         num_jellyfish = 2
         self.scene = scene
                 
-        // Add Player
         add_player_ocean()
         
-        // Add fish
         init_fish(width: scene.size.width, height: scene.size.height)
         
-        // Init common data
         init_common(scene: scene, id: id)
     }
     
@@ -102,29 +97,23 @@ class GameLevel {
         scoreLabel.text = String(gameScore)
         
         if level_id != LEVEL_ID_5 {
-            //Sun pop up
             sun_pop_up()
         }
         
-        // Flag pop up
         flag_pop_up()
                 
         if self.currentGameState == gameState.inGame {
             move_counter += 1
         }
         
-        //Increase number of birds in game
         update_num_birds()
         
         if self.currentGameState == gameState.inGame {
             
-            //Update player
             update_player()
             
-            //Update positions of birds and detect overlap
             update_birds()
         
-            //Update positions of snacks and detect eating snacks
             update_snacks()
             
             pop_frito()
@@ -146,18 +135,14 @@ class GameLevel {
             move_counter += 1
         }
         
-        //Increase number of jellys in game
         update_num_jelly()
         
-        // Flag pop up
         flag_pop_up()
         
         if self.currentGameState == gameState.inGame {
             
-            //Update player
             update_player_ocean()
             
-            //Update positions of birds and detect overlap
             update_jellyfish()
             
             update_fish()
@@ -335,9 +320,9 @@ class GameLevel {
         frito.set_height(height : height)
         frito.set_width(width : width)
         frito.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
-        frito.set_vel(vel_x: -2 * background_speed, vel_y: -2 * background_speed)
+        frito.set_vel(vel_x: 2 * background_speed, vel_y: -2 * background_speed)
         frito.set_z_pos(z_pos: z_pos_chars)
-        frito.set_pos(pos: CGPoint(x : -width, y : height * 0.75 + frito.images[0].size.height / 2))
+        frito.set_pos(pos: CGPoint(x : 10 * width, y : height * 0.75 + frito.images[0].size.height / 2))
         frito.add_childs(scene: scene)
     }
     
@@ -727,7 +712,7 @@ class GameLevel {
         }
         
         if gameScore >= play_misty_guard {
-            play_misty_guard += 20
+            play_misty_guard += 20 + Int.random(in: 10..<40)
             misty.play_misty(bool: Bool.random())
             if misty.top {
                 misty.set_pos(pos: CGPoint(x : misty.width / 2, y : misty.height * 0.75 + misty.images[0].size.height / 2))
@@ -813,7 +798,7 @@ class GameLevel {
         }
         
         if gameScore >= play_misty_guard {
-            play_misty_guard += 20
+            play_misty_guard += 20 + Int.random(in: 10..<40)
             misty.play_misty(bool: Bool.random())
             if misty.top {
                 misty.set_pos(pos: CGPoint(x : misty.width / 2, y : misty.height * 0.75 + misty.images[0].size.height / 2))
@@ -831,11 +816,10 @@ class GameLevel {
                 play_sound_api(scene: scene, sound: [misty_sound_appearing])
             }
         }
-        else if gameScore < play_misty_guard - 15 {
+        else if gameScore < play_misty_guard - 10 {
             misty.bubbles.pop_bubbles_api(pos: misty.get_pos(), scene : scene, sound : [bubbles_sounds])
         }
         else {
-            misty.set_pos(pos: CGPoint(x: -1000, y: 0))
             misty.bubbles.set_pos_bubbles(pos: CGPoint(x: -1000, y: 0))
         }
     }
