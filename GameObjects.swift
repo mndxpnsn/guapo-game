@@ -305,13 +305,13 @@ class BlowFish : GameObject {
         super.init()
     }
     
-    func update_pos_api(scene : SKScene, bk_speed : CGFloat) {
+    func update_pos_api(scene : SKScene, at : Int) {
         
         if !self.hit {
-            self.update_pos(scene: scene, bk_speed: bk_speed)
+            self.update_pos(scene: scene, at_screen : at)
         }
-        else {
-            self.update_pos_hit(scene : scene, bk_speed : bk_speed)
+        if self.hit {
+            self.update_pos_hit(scene: scene, at_screen: at)
         }
     }
 }

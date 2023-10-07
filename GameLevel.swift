@@ -87,9 +87,9 @@ class GameLevel {
                 
         add_player_ocean()
         
-        init_fish(width: scene.size.width, height: scene.size.height)
-        
         init_common(scene: scene, id: id)
+        
+        init_fish(width: scene.size.width, height: scene.size.height)
     }
     
     func update(scene : SKScene) {
@@ -356,6 +356,7 @@ class GameLevel {
         blow_fish.set_size_hit(size: CGSize(width : width * 3 / 7.5, height : height * 2 / 7.5))
         blow_fish.set_pos(pos: CGPoint(x: -1000, y: 0))
         blow_fish.set_z_pos(z_pos: min_z_pos_fishes + 6)
+        blow_fish.set_vel(vel_x: -1.5 * background_speed, vel_y: 0)
         blow_fish.add_childs(scene: scene)
     }
     
@@ -873,10 +874,8 @@ class GameLevel {
             
             if muted == false {
                 play_sound_api(scene: scene, sound: [misty_sound_appearing])
+                misty.bubbles.pop_bubbles_api(pos: misty.get_pos(), scene : scene, sound : [bubbles_sounds])
             }
-        }
-        else if gameScore < play_misty_guard - 10 {
-            misty.bubbles.pop_bubbles_api(pos: misty.get_pos(), scene : scene, sound : [bubbles_sounds])
         }
         else {
             misty.bubbles.set_pos_bubbles(pos: CGPoint(x: -1000, y: 0))
@@ -887,7 +886,7 @@ class GameLevel {
         let defaults = UserDefaults()
         
         for jelly in jellyfishes {
-            jelly.update_pos(scene : scene, bk_speed: -background_speed)
+            jelly.update_pos_jelly(scene : scene, bk_speed: -background_speed, num_frames: num_frames_jelly)
             jelly.update_pos_api()
             
             if check_collision(bird : jelly, player : player, den : 3.5) {
@@ -923,7 +922,7 @@ class GameLevel {
     
     func update_blow_fish() {
         
-        blow_fish.update_pos_api(scene: scene, bk_speed: -background_speed)
+        blow_fish.update_pos_api(scene: scene, at: 5)
         
         if check_collision(bird : blow_fish, player : player, den : 3.5) {
 
