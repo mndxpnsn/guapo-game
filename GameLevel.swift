@@ -66,7 +66,7 @@ class GameLevel {
     var play_misty_guard = Int.random(in: 10..<40) + 20
     var flag_freq = FLAG_FREQUENCY
     var flag_num = 1
-    var num_lives = 3
+    var num_lives = NUM_LIVES
     
     var scene = SKScene()
 
@@ -188,7 +188,7 @@ class GameLevel {
         let defaults = UserDefaults()
         
         for x in backgrounds {
-            defaults.set(x.position.x, forKey: String(level_id) + "backgrounds" + String(counter))
+            defaults.set(x.position.x, forKey: String(level_id) + BACKGROUNDS_STR + String(counter))
             counter += 1
         }
     }
@@ -199,54 +199,79 @@ class GameLevel {
         let defaults = UserDefaults()
         
         for x in backgrounds {
-            x.position.x = CGFloat(defaults.float(forKey: String(level_id) + "backgrounds" + String(counter)))
+            x.position.x = CGFloat(defaults.float(forKey: String(level_id) + BACKGROUNDS_STR + String(counter)))
             counter += 1
         }
     }
     
     func save_state() {
-        save_object(object: player, prefix: String(level_id) + "LEVEL_1_player")
-        save_object(object : brownie, prefix : String(level_id) + "LEVEL_1_brownie")
-        save_object(object : frito, prefix : String(level_id) + "LEVEL_1_frito")
-        save_misty(object : misty, prefix : String(level_id) + "LEVEL_1_misty")
-        save_snacks(snacks: cheesy_bites, prefix: String(level_id) + "LEVEL_1_CHEESY")
-        save_snacks(snacks: paprikas, prefix: String(level_id) + "LEVEL_1_PAPRIKA")
-        save_snacks(snacks: cucumbers, prefix: String(level_id) + "LEVEL_1_CUCUMBERS")
-        save_snacks(snacks: beggin_strips, prefix: String(level_id) + "LEVEL_1_BEGGIN")
-        save_snacks(snacks: broccolis, prefix: String(level_id) + "LEVEL_1_BROCCOLIS")
-        save_object(object: fish1, prefix: String(level_id) + "FISH_1")
-        save_object(object: fish2, prefix: String(level_id) + "FISH_2")
-        save_object(object: fish3, prefix: String(level_id) + "FISH_3")
-        save_object(object: fish4, prefix: String(level_id) + "FISH_4")
-        save_object(object: fish5, prefix: String(level_id) + "FISH_5")
-        save_object(object: fish6, prefix: String(level_id) + "FISH_6")
-        save_object(object: blow_fish, prefix: String(level_id) + "BLOWFISH")
+        save_object(object: player, prefix: String(level_id) + PLAYER_STR)
+        save_object(object : brownie, prefix : String(level_id) + BROWNIE_STR)
+        save_object(object : frito, prefix : String(level_id) + FRITO_STR)
+        save_misty(object : misty, prefix : String(level_id) + MISTY_STR)
+        save_snacks(snacks: cheesy_bites, prefix: String(level_id) + CHEESY_STR)
+        save_snacks(snacks: paprikas, prefix: String(level_id) + PAPRIKA_STR)
+        save_snacks(snacks: cucumbers, prefix: String(level_id) + CUCUMBER_STR)
+        save_snacks(snacks: beggin_strips, prefix: String(level_id) + BEGGIN_STR)
+        save_snacks(snacks: broccolis, prefix: String(level_id) + BROCCOLI_STR)
+        save_object(object: fish1, prefix: String(level_id) + FISH_STR_1)
+        save_object(object: fish2, prefix: String(level_id) + FISH_STR_2)
+        save_object(object: fish3, prefix: String(level_id) + FISH_STR_3)
+        save_object(object: fish4, prefix: String(level_id) + FISH_STR_4)
+        save_object(object: fish5, prefix: String(level_id) + FISH_STR_5)
+        save_object(object: fish6, prefix: String(level_id) + FISH_STR_6)
+        save_object(object: blow_fish, prefix: String(level_id) + BLOWFISH_STR)
         save_backgrounds()
-        let defaults = UserDefaults()
-        defaults.set(gameScore, forKey: String(level_id) + "SCORE_ID")
-        defaults.set(play_misty_guard, forKey: String(level_id) + "MISTY_GUARD")
-        defaults.set(flag_num, forKey: String(level_id) + "FLAG_NUM")
-        defaults.set(num_lives, forKey: String(level_id) + "NUM_LIVES")
+        save_other()
     }
     
     func get_state() {
-        get_brownie_object(object: &brownie, prefix: String(level_id) + "LEVEL_1_brownie")
-        get_frito_object(object : &frito, prefix : String(level_id) + "LEVEL_1_frito")
-        get_misty_object(object: &misty, prefix: String(level_id) + "LEVEL_1_misty")
-        get_player_object(object: &player, prefix: String(level_id) + "LEVEL_1_player")
-        get_snacks(snacks: &cheesy_bites, prefix: String(level_id) + "LEVEL_1_CHEESY")
-        get_snacks(snacks: &paprikas, prefix: String(level_id) + "LEVEL_1_PAPRIKA")
-        get_snacks(snacks: &cucumbers, prefix: String(level_id) + "LEVEL_1_CUCUMBERS")
-        get_snacks(snacks: &beggin_strips, prefix: String(level_id) + "LEVEL_1_BEGGIN")
-        get_snacks(snacks: &broccolis, prefix: String(level_id) + "LEVEL_1_BROCCOLIS")
-        get_object(object: &fish1, prefix: String(level_id) + "FISH_1")
-        get_object(object: &fish2, prefix: String(level_id) + "FISH_2")
-        get_object(object: &fish3, prefix: String(level_id) + "FISH_3")
-        get_object(object: &fish4, prefix: String(level_id) + "FISH_4")
-        get_object(object: &fish5, prefix: String(level_id) + "FISH_5")
-        get_object(object: &fish6, prefix: String(level_id) +  "FISH_6")
-        get_blowfish(object: &blow_fish, prefix: String(level_id) + "BLOWFISH")
+        get_player_object(object: &player, prefix: String(level_id) + PLAYER_STR)
+        get_brownie_object(object: &brownie, prefix: String(level_id) + BROWNIE_STR)
+        get_frito_object(object : &frito, prefix : String(level_id) + FRITO_STR)
+        get_misty_object(object: &misty, prefix: String(level_id) + MISTY_STR)
+        get_snacks(snacks: &cheesy_bites, prefix: String(level_id) + CHEESY_STR)
+        get_snacks(snacks: &paprikas, prefix: String(level_id) + PAPRIKA_STR)
+        get_snacks(snacks: &cucumbers, prefix: String(level_id) + CUCUMBER_STR)
+        get_snacks(snacks: &beggin_strips, prefix: String(level_id) + BEGGIN_STR)
+        get_snacks(snacks: &broccolis, prefix: String(level_id) + BROCCOLI_STR)
+        get_object(object: &fish1, prefix: String(level_id) + FISH_STR_1)
+        get_object(object: &fish2, prefix: String(level_id) + FISH_STR_2)
+        get_object(object: &fish3, prefix: String(level_id) + FISH_STR_3)
+        get_object(object: &fish4, prefix: String(level_id) + FISH_STR_4)
+        get_object(object: &fish5, prefix: String(level_id) + FISH_STR_5)
+        get_object(object: &fish6, prefix: String(level_id) + FISH_STR_6)
+        get_blowfish(object: &blow_fish, prefix: String(level_id) + BLOWFISH_STR)
         get_backgrounds()
+        get_other()
+    }
+    
+    func save_other() {
+        let defaults = UserDefaults()
+        defaults.set(gameScore, forKey: String(level_id) + SCORE_ID)
+        defaults.set(play_misty_guard, forKey: String(level_id) + MISTY_GUARD)
+        defaults.set(flag_num, forKey: String(level_id) + FLAG_NUM)
+        defaults.set(num_lives, forKey: String(level_id) + NUM_LIVES_STR)
+    }
+    
+    func get_other() {
+        
+        let defaults = UserDefaults()
+        gameScore = defaults.integer(forKey: String(level_id) + SCORE_ID)
+        play_misty_guard = defaults.integer(forKey: String(level_id) + MISTY_GUARD)
+        flag_num = defaults.integer(forKey: String(level_id) + FLAG_NUM)
+        num_lives = defaults.integer(forKey: String(level_id) + NUM_LIVES_STR)
+        
+        for j in 0..<num_lives {
+            let life_image = SKSpriteNode(imageNamed: HEART_IMAGE_STR)
+            life_image.setScale(1)
+            life_image.size = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
+            let size_loc = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
+            life_image.position = CGPoint(x: scene.size.width / 2 + CGFloat(j) * size_loc.width + 5, y: CGFloat(scene.size.height * 0.75) - size_loc.height)
+            life_image.zPosition = 100
+            life_image.removeFromParent()
+            scene.addChild(life_image)
+        }
     }
     
     func update_snacks() {
@@ -390,29 +415,29 @@ class GameLevel {
         
         add_snacks(scene : scene)
         
-        continue_button.add_image(image: "continue_button_not_pressed_bitmap_cropped")
-        continue_button.add_image_hit(image: "continue_button_pressed_bitmap_cropped")
+        continue_button.add_image(image: CONTINUE_BUTTON_NOT_PRESSED)
+        continue_button.add_image_hit(image: CONTINUE_BUTTON_PRESSED)
         continue_button.set_pos(pos: CGPoint(x: scene.size.width / 2 - continue_button.get_size().width / 2, y: scene.size.height / 2))
         continue_button.set_z_pos(z_pos: -1)
         continue_button.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
         continue_button.add_childs(scene: scene)
         
-        restart_button.add_image(image: "restart_button_not_pressed_bitmap_cropped")
-        restart_button.add_image_hit(image: "restart_button_pressed_bitmap_cropped")
+        restart_button.add_image(image: RESTART_BUTTON_NOT_PRESSED)
+        restart_button.add_image_hit(image: RESTART_BUTTON_PRESSED)
         restart_button.set_pos(pos: CGPoint(x: scene.size.width / 2 + restart_button.get_size().width / 2, y: scene.size.height / 2))
         restart_button.set_z_pos(z_pos: -1)
         restart_button.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
         restart_button.add_childs(scene: scene)
         
         if level_id != LEVEL_ID_5 {
-            flag.add_image(image: "flag_aruba_bitmap_cropped")
+            flag.add_image(image: FLAG_ARUBA_STR)
             flag.set_pos(pos: CGPoint(x: scene.size.width / 2 + flag.get_size().width / 2, y: scene.size.height / 2))
             flag.set_z_pos(z_pos: -1)
             flag.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
             flag.add_childs(scene: scene)
         }
         else {
-            flag.add_image(image: "flag_netherlands_bitmap_cropped")
+            flag.add_image(image: FLAG_NETHERLANDS_STR)
             flag.set_pos(pos: CGPoint(x: scene.size.width / 2 + flag.get_size().width / 2, y: scene.size.height / 2))
             flag.set_z_pos(z_pos: -1)
             flag.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
@@ -421,7 +446,7 @@ class GameLevel {
         
         pause_button.setScale(1)
         pause_button.size = CGSize(width: width / 28, height: height / 28)
-        pause_button.position = CGPoint(x: width - width / 12, y: height / 2 + height * 1.9 / 5 / 2)
+        pause_button.position = CGPoint(x: width - width / 12, y: height / 2 + height * 1.9 / 10)
         pause_button.zPosition = z_pos_pause
         pause_button.removeFromParent()
         scene.addChild(pause_button)
@@ -444,7 +469,7 @@ class GameLevel {
         scoreLabel.fontSize = 100
         scoreLabel.fontColor = SKColor.gray
         scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        scoreLabel.position = CGPoint(x: scene.size.width/12, y: scene.size.height/2 + scene.size.height*1.8/5/2)
+        scoreLabel.position = CGPoint(x: scene.size.width / 12, y: scene.size.height / 2 + scene.size.height * 1.8 / 10)
         
         scoreLabel.zPosition = z_pos_pause
         scoreLabel.removeFromParent()
@@ -470,30 +495,31 @@ class GameLevel {
         is_already_unlocked = highScore >= unlock_level_points
         muted = defaults.bool(forKey: String(level_id) + GAME_MUTED)
         playing = defaults.bool(forKey: String(level_id) + PLAYING)
-        if playing {
-            gameScore = defaults.integer(forKey: String(level_id) + "SCORE_ID")
-            play_misty_guard = defaults.integer(forKey: String(level_id) + "MISTY_GUARD")
-            flag_num = defaults.integer(forKey: String(level_id) + "FLAG_NUM")
-            num_lives = defaults.integer(forKey: String(level_id) + "NUM_LIVES")
-        }
         
         mute_bubbles(bubbles : player.bubbles, mute : muted)
         mute_bubbles(bubbles : frito.bubbles, mute : muted)
         mute_bubbles(bubbles : brownie.bubbles, mute : muted)
         mute_bubbles(bubbles : misty.bubbles, mute : muted)
         
+        if !playing {
+            add_lives()
+        }
+        
+        startGame()
+    }
+    
+    func add_lives() {
+        
         for j in 0..<num_lives {
-            let life_image = SKSpriteNode(imageNamed: "heart1_bitmap_cropped")
+            let life_image = SKSpriteNode(imageNamed: HEART_IMAGE_STR)
             life_image.setScale(1)
-            life_image.size = CGSize(width: width / 28, height: height / 28)
-            let size_loc = CGSize(width: width / 28, height: height / 28)
-            life_image.position = CGPoint(x: width / 2 + CGFloat(j) * size_loc.width + 5, y: CGFloat(height * 0.75) - size_loc.height)
+            life_image.size = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
+            let size_loc = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
+            life_image.position = CGPoint(x: scene.size.width / 2 + CGFloat(j) * size_loc.width + 5, y: CGFloat(scene.size.height * 0.75) - size_loc.height)
             life_image.zPosition = 100
             life_image.removeFromParent()
             scene.addChild(life_image)
         }
-        
-        startGame()
     }
     
     func mute_bubbles(bubbles : Bubbles, mute : Bool) {
@@ -508,10 +534,10 @@ class GameLevel {
     
     func init_background(scene : SKScene, num_backgrounds : Int, string1 : String) {
         black_background_top.size = CGSize(width: scene.size.width, height: scene.size.height / 4)
-        black_background_top.position = CGPoint(x: scene.size.width / 2, y: scene.size.height * 0.75 + scene.size.height / 4 / 2)
+        black_background_top.position = CGPoint(x: scene.size.width / 2, y: scene.size.height * 0.75 + scene.size.height / 8)
         black_background_top.zPosition = 10000
         black_background_bot.size = CGSize(width: scene.size.width, height: scene.size.height / 4)
-        black_background_bot.position = CGPoint(x: scene.size.width / 2, y: scene.size.height * 0.25 - scene.size.height / 4 / 2)
+        black_background_bot.position = CGPoint(x: scene.size.width / 2, y: scene.size.height * 0.25 - scene.size.height / 8)
         black_background_bot.zPosition = 10000
         scene.addChild(black_background_top)
         scene.addChild(black_background_bot)
@@ -872,7 +898,7 @@ class GameLevel {
                 }
                 
                 num_lives = num_lives - 1
-                defaults.set(num_lives, forKey: String(level_id) + "NUM_LIVES")
+                defaults.set(num_lives, forKey: String(level_id) + NUM_LIVES_STR)
                 
                 if(num_lives < 0) {
                     game_over()
@@ -928,7 +954,7 @@ class GameLevel {
                 }
                 
                 num_lives = num_lives - 1
-                defaults.set(num_lives, forKey: String(level_id) + "NUM_LIVES")
+                defaults.set(num_lives, forKey: String(level_id) + NUM_LIVES_STR)
                 
                 if(num_lives < 0) {
                     game_over()

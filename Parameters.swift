@@ -186,3 +186,36 @@ let MAIN_MENU_BUTTON_GRAY_4 = "ocean_level_button_grey"
 let MAIN_MENU_BUTTON_GRAY_5 = "utreg_level_button_grey"
 let LEVEL_UNLOCK_GUARD = 100
 let FLAG_FREQUENCY = 100
+
+let BACKGROUNDS_STR = "backgrounds"
+let PLAYER_STR = "LEVEL_1_player"
+let BROWNIE_STR = "LEVEL_1_brownie"
+let FRITO_STR = "LEVEL_1_frito"
+let MISTY_STR = "LEVEL_1_misty"
+let CHEESY_STR = "LEVEL_1_CHEESY"
+let PAPRIKA_STR = "LEVEL_1_PAPRIKA"
+let CUCUMBER_STR = "LEVEL_1_CUCUMBERS"
+let BEGGIN_STR = "LEVEL_1_BEGGIN"
+let BROCCOLI_STR = "LEVEL_1_BROCCOLIS"
+
+let FISH_STR_1 = "FISH_1"
+let FISH_STR_2 = "FISH_2"
+let FISH_STR_3 = "FISH_3"
+let FISH_STR_4 = "FISH_4"
+let FISH_STR_5 = "FISH_5"
+let FISH_STR_6 = "FISH_6"
+let BLOWFISH_STR = "BLOWFISH"
+let HEART_IMAGE_STR = "heart1_bitmap_cropped"
+let SCORE_ID = "SCORE_ID"
+let MISTY_GUARD = "MISTY_GUARD"
+let FLAG_NUM = "FLAG_NUM"
+let NUM_LIVES_STR = "NUM_LIVES"
+let NUM_LIVES = 3
+
+let FLAG_ARUBA_STR = "flag_aruba_bitmap_cropped"
+let FLAG_NETHERLANDS_STR = "flag_netherlands_bitmap_cropped"
+
+let CONTINUE_BUTTON_NOT_PRESSED = "continue_button_not_pressed_bitmap_cropped"
+let CONTINUE_BUTTON_PRESSED = "continue_button_pressed_bitmap_cropped"
+let RESTART_BUTTON_NOT_PRESSED = "restart_button_not_pressed_bitmap_cropped"
+let RESTART_BUTTON_PRESSED = "restart_button_pressed_bitmap_cropped"
