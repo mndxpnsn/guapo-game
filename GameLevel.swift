@@ -163,22 +163,20 @@ class GameLevel {
     }
     
     func game_over() {
-        if num_lives < 0 {
-            if level_id == LEVEL_ID_1 {
-                runGameOver(high_score_id: HIGH_SCORE_ID_1)
-            }
-            if level_id == LEVEL_ID_2 {
-                runGameOver(high_score_id: HIGH_SCORE_ID_2)
-            }
-            if level_id == LEVEL_ID_3 {
-                runGameOver(high_score_id: HIGH_SCORE_ID_3)
-            }
-            if level_id == LEVEL_ID_4 {
-                runGameOver(high_score_id: HIGH_SCORE_ID_4)
-            }
-            if level_id == LEVEL_ID_5 {
-                runGameOver(high_score_id: HIGH_SCORE_ID_5)
-            }
+        if level_id == LEVEL_ID_1 {
+            runGameOver(high_score_id: HIGH_SCORE_ID_1)
+        }
+        if level_id == LEVEL_ID_2 {
+            runGameOver(high_score_id: HIGH_SCORE_ID_2)
+        }
+        if level_id == LEVEL_ID_3 {
+            runGameOver(high_score_id: HIGH_SCORE_ID_3)
+        }
+        if level_id == LEVEL_ID_4 {
+            runGameOver(high_score_id: HIGH_SCORE_ID_4)
+        }
+        if level_id == LEVEL_ID_5 {
+            runGameOver(high_score_id: HIGH_SCORE_ID_5)
         }
     }
     
