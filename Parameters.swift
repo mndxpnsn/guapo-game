@@ -44,6 +44,12 @@ let z_pos_player : CGFloat = CGFloat(tot_num_birds) * 5
 let z_pos_snacks : CGFloat = CGFloat(tot_num_birds) * 2
 let z_pos_chars : CGFloat = CGFloat(tot_num_birds) * 1
 let z_pos_pause : CGFloat = CGFloat(tot_num_birds) * 5 + 1
+let z_pos_continue : CGFloat = CGFloat(tot_num_birds) * 5 + 2
+let z_pos_restart : CGFloat = CGFloat(tot_num_birds) * 5 + 2
+let z_pos_lives : CGFloat = CGFloat(tot_num_birds) * 5 + 2
+let z_pos_flag : CGFloat = CGFloat(tot_num_birds) * 5 - 1
+let z_pos_sun : CGFloat = CGFloat(tot_num_birds) * 5 - 1
+let z_pos_black : CGFloat = CGFloat(tot_num_birds) * 10
 
 let min_z_pos_jelly_fish = CGFloat(tot_num_birds) * 3
 let min_z_pos_fishes = CGFloat(tot_num_birds) * 1

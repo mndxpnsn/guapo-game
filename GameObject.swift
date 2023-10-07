@@ -168,6 +168,12 @@ class GameObject {
         }
     }
     
+    func set_size_hit(size : CGSize) {
+        for x in self.images_hit {
+            x.size = size
+        }
+    }
+    
     func get_size() -> CGSize {
         return self.images[0].size
     }

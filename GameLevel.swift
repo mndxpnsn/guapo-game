@@ -266,7 +266,7 @@ class GameLevel {
             life_image.size = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
             let size_loc = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
             life_image.position = CGPoint(x: scene.size.width / 2 + CGFloat(j) * size_loc.width + 5, y: CGFloat(scene.size.height * 0.75) - size_loc.height)
-            life_image.zPosition = 100
+            life_image.zPosition = z_pos_lives
             life_image.removeFromParent()
             scene.addChild(life_image)
         }
@@ -296,7 +296,7 @@ class GameLevel {
         fish1.add_image(image: FISH_IMAGE_2)
         fish1.set_height(height : height)
         fish1.set_width(width : width)
-        fish1.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
+        fish1.set_size(size: CGSize(width : width / 7.5, height : height / 15))
         fish1.set_pos(pos: CGPoint(x: -1000, y: 0))
         fish1.set_z_pos(z_pos: min_z_pos_fishes)
         fish1.add_childs(scene: scene)
@@ -307,16 +307,16 @@ class GameLevel {
         fish2.set_width(width : width)
         fish2.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
         fish2.set_pos(pos: CGPoint(x: -1000, y: 0))
-        fish2.set_z_pos(z_pos: min_z_pos_fishes)
+        fish2.set_z_pos(z_pos: min_z_pos_fishes + 1)
         fish2.add_childs(scene: scene)
         
         fish3.add_image(image: FISH_IMAGE_3A)
         fish3.add_image(image: FISH_IMAGE_3B)
         fish3.set_height(height : height)
         fish3.set_width(width : width)
-        fish3.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
+        fish3.set_size(size: CGSize(width : width / 7.5, height : height / 15))
         fish3.set_pos(pos: CGPoint(x: -1000, y: 0))
-        fish3.set_z_pos(z_pos: min_z_pos_fishes)
+        fish3.set_z_pos(z_pos: min_z_pos_fishes + 2)
         fish3.add_childs(scene: scene)
         
         fish4.add_image(image: FISH_IMAGE_4A)
@@ -325,7 +325,7 @@ class GameLevel {
         fish4.set_width(width : width)
         fish4.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
         fish4.set_pos(pos: CGPoint(x: -1000, y: 0))
-        fish4.set_z_pos(z_pos: min_z_pos_fishes)
+        fish4.set_z_pos(z_pos: min_z_pos_fishes + 3)
         fish4.add_childs(scene: scene)
         
         fish5.add_image(image: FISH_IMAGE_5A)
@@ -334,16 +334,16 @@ class GameLevel {
         fish5.set_width(width : width)
         fish5.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
         fish5.set_pos(pos: CGPoint(x: 10 * width, y: 0))
-        fish5.set_z_pos(z_pos: min_z_pos_fishes)
+        fish5.set_z_pos(z_pos: min_z_pos_fishes + 4)
         fish5.add_childs(scene: scene)
         
         fish6.add_image(image: FISH_IMAGE_6A)
         fish6.add_image(image: FISH_IMAGE_6B)
         fish6.set_height(height : height)
         fish6.set_width(width : width)
-        fish6.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
+        fish6.set_size(size: CGSize(width : width / 7.5, height : height / 15))
         fish6.set_pos(pos: CGPoint(x: 10 * width, y: 0))
-        fish6.set_z_pos(z_pos: min_z_pos_fishes)
+        fish6.set_z_pos(z_pos: min_z_pos_fishes + 5)
         fish6.add_childs(scene: scene)
         
         blow_fish.add_image(image: BLOW_FISH_IMAGE_1)
@@ -352,9 +352,10 @@ class GameLevel {
         blow_fish.add_image_hit(image: BLOW_FISH_IMAGE_4)
         blow_fish.set_height(height : height)
         blow_fish.set_width(width : width)
-        blow_fish.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
+        blow_fish.set_size(size: CGSize(width : width * 3 / 15, height : height / 7.5))
+        blow_fish.set_size_hit(size: CGSize(width : width * 3 / 7.5, height : height * 2 / 7.5))
         blow_fish.set_pos(pos: CGPoint(x: -1000, y: 0))
-        blow_fish.set_z_pos(z_pos: min_z_pos_fishes)
+        blow_fish.set_z_pos(z_pos: min_z_pos_fishes + 6)
         blow_fish.add_childs(scene: scene)
     }
     
@@ -379,7 +380,7 @@ class GameLevel {
         brownie.set_width(width : width)
         brownie.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
         brownie.set_vel(vel_x: -2 * background_speed, vel_y: -2 * background_speed)
-        brownie.set_z_pos(z_pos: 100000)
+        brownie.set_z_pos(z_pos: z_pos_chars + 1)
         brownie.set_pos(pos: CGPoint(x : -width, y : height * 0.75 + brownie.images[0].size.height / 2))
         
         brownie.add_childs(scene: scene)
@@ -393,7 +394,7 @@ class GameLevel {
         misty.set_width(width : width)
         misty.set_size(size: CGSize(width : width / 7.5, height : height / 7.5))
         misty.set_vel_misty(vx: 0, vy: -background_speed)
-        misty.set_z_pos(z_pos: 100000)
+        misty.set_z_pos(z_pos: z_pos_chars + 2)
         misty.set_pos(pos: CGPoint(x : width / 2, y : height * 0.75 + misty.images[0].size.height / 2))
         
         misty.add_childs(scene: scene)
@@ -417,28 +418,28 @@ class GameLevel {
         continue_button.add_image_hit(image: CONTINUE_BUTTON_PRESSED)
         continue_button.set_pos(pos: CGPoint(x: scene.size.width / 2 - continue_button.get_size().width / 2, y: scene.size.height / 2))
         continue_button.set_z_pos(z_pos: -1)
-        continue_button.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
+        continue_button.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 10))
         continue_button.add_childs(scene: scene)
         
         restart_button.add_image(image: RESTART_BUTTON_NOT_PRESSED)
         restart_button.add_image_hit(image: RESTART_BUTTON_PRESSED)
         restart_button.set_pos(pos: CGPoint(x: scene.size.width / 2 + restart_button.get_size().width / 2, y: scene.size.height / 2))
         restart_button.set_z_pos(z_pos: -1)
-        restart_button.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
+        restart_button.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 10))
         restart_button.add_childs(scene: scene)
         
         if level_id != LEVEL_ID_5 {
             flag.add_image(image: FLAG_ARUBA_STR)
-            flag.set_pos(pos: CGPoint(x: scene.size.width / 2 + flag.get_size().width / 2, y: scene.size.height / 2))
             flag.set_z_pos(z_pos: -1)
             flag.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
+            flag.set_pos(pos: CGPoint(x: scene.size.width - flag.get_size().width, y: scene.size.height * 0.75 - flag.get_size().height))
             flag.add_childs(scene: scene)
         }
         else {
             flag.add_image(image: FLAG_NETHERLANDS_STR)
-            flag.set_pos(pos: CGPoint(x: scene.size.width / 2 + flag.get_size().width / 2, y: scene.size.height / 2))
             flag.set_z_pos(z_pos: -1)
             flag.set_size(size: CGSize(width: scene.size.width / 5, height: scene.size.height / 5))
+            flag.set_pos(pos: CGPoint(x: scene.size.width - flag.get_size().width, y: scene.size.height * 0.75 - flag.get_size().height))
             flag.add_childs(scene: scene)
         }
         
@@ -514,7 +515,7 @@ class GameLevel {
             life_image.size = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
             let size_loc = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
             life_image.position = CGPoint(x: scene.size.width / 2 + CGFloat(j) * size_loc.width + 5, y: CGFloat(scene.size.height * 0.75) - size_loc.height)
-            life_image.zPosition = 100
+            life_image.zPosition = z_pos_lives
             life_image.removeFromParent()
             scene.addChild(life_image)
         }
@@ -533,10 +534,10 @@ class GameLevel {
     func init_background(scene : SKScene, num_backgrounds : Int, string1 : String) {
         black_background_top.size = CGSize(width: scene.size.width, height: scene.size.height / 4)
         black_background_top.position = CGPoint(x: scene.size.width / 2, y: scene.size.height * 0.75 + scene.size.height / 8)
-        black_background_top.zPosition = 10000
+        black_background_top.zPosition = z_pos_black
         black_background_bot.size = CGSize(width: scene.size.width, height: scene.size.height / 4)
         black_background_bot.position = CGPoint(x: scene.size.width / 2, y: scene.size.height * 0.25 - scene.size.height / 8)
-        black_background_bot.zPosition = 10000
+        black_background_bot.zPosition = z_pos_black
         scene.addChild(black_background_top)
         scene.addChild(black_background_bot)
         
@@ -986,7 +987,7 @@ class GameLevel {
                 play_sun_pop_up = false
             }
             
-            sun_popup_spr.zPosition = 20
+            sun_popup_spr.zPosition = z_pos_sun
         }
         else {
             //Reset sun popup zposition
@@ -1126,8 +1127,8 @@ class GameLevel {
         
         player.set_z_pos(z_pos: -1)
         player.set_z_pos_hit(z_pos: z_pos_player)
-        continue_button.images[0].zPosition = 100
-        restart_button.images[0].zPosition = 100
+        continue_button.images[0].zPosition = z_pos_continue
+        restart_button.images[0].zPosition = z_pos_restart
         
         end_game()
     }
@@ -1204,7 +1205,7 @@ class GameLevel {
                 let w2 = restart_button.images[0].size.width / 2
                 let h2 = restart_button.images[0].size.height / 2
                 if point.x > p1.x - w1 && point.x < p1.x + w1 && point.y > p1.y - h1 && point.y < p1.y + h1 {
-                    continue_button.images_hit[0].zPosition = 100
+                    continue_button.images_hit[0].zPosition = z_pos_continue
                     continue_button.images[0].zPosition = -1
                     let defaults = UserDefaults()
                     playing = true
@@ -1228,7 +1229,7 @@ class GameLevel {
                 }
                 
                 if point.x > p2.x - w2 && point.x < p2.x + w2 && point.y > p2.y - h2 && point.y < p2.y + h2 {
-                    restart_button.images_hit[0].zPosition = 100
+                    restart_button.images_hit[0].zPosition = z_pos_restart
                     restart_button.images[0].zPosition = -1
                     let defaults = UserDefaults()
                     playing = false
