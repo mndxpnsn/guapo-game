@@ -64,8 +64,9 @@ class GameLevel {
     var r_o = CGPoint(x: 0, y: 0)
     
     var play_misty_guard = Int.random(in: 10..<40) + 20
-    var flag_freq = 50
+    var flag_freq = FLAG_FREQUENCY
     var flag_num = 1
+    var num_lives = 3
     
     var scene = SKScene()
 
@@ -161,6 +162,26 @@ class GameLevel {
         }
     }
     
+    func game_over() {
+        if num_lives < 0 {
+            if level_id == LEVEL_ID_1 {
+                runGameOver(high_score_id: HIGH_SCORE_ID_1)
+            }
+            if level_id == LEVEL_ID_2 {
+                runGameOver(high_score_id: HIGH_SCORE_ID_2)
+            }
+            if level_id == LEVEL_ID_3 {
+                runGameOver(high_score_id: HIGH_SCORE_ID_3)
+            }
+            if level_id == LEVEL_ID_4 {
+                runGameOver(high_score_id: HIGH_SCORE_ID_4)
+            }
+            if level_id == LEVEL_ID_5 {
+                runGameOver(high_score_id: HIGH_SCORE_ID_5)
+            }
+        }
+    }
+    
     func save_backgrounds() {
         
         var counter = 1
@@ -205,6 +226,7 @@ class GameLevel {
         defaults.set(gameScore, forKey: String(level_id) + "SCORE_ID")
         defaults.set(play_misty_guard, forKey: String(level_id) + "MISTY_GUARD")
         defaults.set(flag_num, forKey: String(level_id) + "FLAG_NUM")
+        defaults.set(num_lives, forKey: String(level_id) + "NUM_LIVES")
     }
     
     func get_state() {
@@ -452,12 +474,24 @@ class GameLevel {
             gameScore = defaults.integer(forKey: String(level_id) + "SCORE_ID")
             play_misty_guard = defaults.integer(forKey: String(level_id) + "MISTY_GUARD")
             flag_num = defaults.integer(forKey: String(level_id) + "FLAG_NUM")
+            num_lives = defaults.integer(forKey: String(level_id) + "NUM_LIVES")
         }
         
         mute_bubbles(bubbles : player.bubbles, mute : muted)
         mute_bubbles(bubbles : frito.bubbles, mute : muted)
         mute_bubbles(bubbles : brownie.bubbles, mute : muted)
         mute_bubbles(bubbles : misty.bubbles, mute : muted)
+        
+        for j in 0..<num_lives {
+            let life_image = SKSpriteNode(imageNamed: "heart1_bitmap_cropped")
+            life_image.setScale(1)
+            life_image.size = CGSize(width: width / 28, height: height / 28)
+            let size_loc = CGSize(width: width / 28, height: height / 28)
+            life_image.position = CGPoint(x: width / 2 + CGFloat(j) * size_loc.width + 5, y: CGFloat(height * 0.75) - size_loc.height)
+            life_image.zPosition = 100
+            life_image.removeFromParent()
+            scene.addChild(life_image)
+        }
         
         startGame()
     }
@@ -825,6 +859,8 @@ class GameLevel {
     }
     
     func update_jellyfish() {
+        let defaults = UserDefaults()
+        
         for jelly in jellyfishes {
             jelly.update_pos(scene : scene, bk_speed: -background_speed)
             jelly.update_pos_api()
@@ -835,9 +871,18 @@ class GameLevel {
                     play_sound_api(scene: scene, sound: [endSound])
                 }
                 
+                num_lives = num_lives - 1
+                defaults.set(num_lives, forKey: String(level_id) + "NUM_LIVES")
+                
+                if(num_lives < 0) {
+                    game_over()
+                }
+                
                 self.currentGameState = gameState.afterGame
                 
-                show_restart_continue()
+                if(num_lives >= 0) {
+                    show_restart_continue()
+                }
             }
         }
     }
@@ -871,6 +916,8 @@ class GameLevel {
     }
     
     func update_birds() {
+        let defaults = UserDefaults()
+        
         for bird in birds {
             bird.update_pos(scene : scene, bk_speed: -background_speed)
 
@@ -880,26 +927,35 @@ class GameLevel {
                     play_sound_api(scene: scene, sound: [endSound])
                 }
                 
+                num_lives = num_lives - 1
+                defaults.set(num_lives, forKey: String(level_id) + "NUM_LIVES")
+                
+                if(num_lives < 0) {
+                    game_over()
+                }
+                
                 self.currentGameState = gameState.afterGame
                 
-                if(level_id == LEVEL_ID_1) {
-                    show_restart_continue()
-                }
-                if(level_id == LEVEL_ID_2) {
-                    show_restart_continue()
-                }
-                if(level_id == LEVEL_ID_3) {
-                    show_restart_continue()
-                }
-                if(level_id == LEVEL_ID_5) {
-                    show_restart_continue()
+                if(num_lives >= 0) {
+                    if(level_id == LEVEL_ID_1) {
+                        show_restart_continue()
+                    }
+                    if(level_id == LEVEL_ID_2) {
+                        show_restart_continue()
+                    }
+                    if(level_id == LEVEL_ID_3) {
+                        show_restart_continue()
+                    }
+                    if(level_id == LEVEL_ID_5) {
+                        show_restart_continue()
+                    }
                 }
             }
         }
     }
     
     func sun_pop_up() {
-        if gameScore >=  unlock_level_points && !is_already_unlocked && sun_popup_frame_counter <= num_frames_sun_popup {
+        if gameScore >=  LEVEL_UNLOCK_GUARD && !is_already_unlocked && sun_popup_frame_counter <= num_frames_sun_popup {
             sun_popup_frame_counter += 1
             if muted == false && play_sun_pop_up {
                 play_sound_api(scene: scene, sound: [sun_popup_sound])
@@ -1008,8 +1064,8 @@ class GameLevel {
     }
     
     func run_continue(high_score_id: String, GameLevel : SKScene) {
+        let defaults = UserDefaults()
         if gameScore > highScore {
-            let defaults = UserDefaults()
             defaults.set(gameScore, forKey: high_score_id)
         }
         

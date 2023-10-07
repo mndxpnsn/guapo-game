@@ -35,7 +35,6 @@ let bubble_vel_y = 5.0
 
 let pause_button = SKSpriteNode(imageNamed: "pause_button_bitmap_cropped")
 let play_button = SKSpriteNode(imageNamed: "play_button_bitmap_cropped")
-
 let sun_popup_spr = SKSpriteNode(imageNamed: "sun_popup_bitmap_cropped")
 
 let scoreLabel = SKLabelNode(fontNamed: "Courier-Bold")
@@ -186,3 +185,4 @@ let MAIN_MENU_BUTTON_GRAY_3 = "trip_level_button_grey"
 let MAIN_MENU_BUTTON_GRAY_4 = "ocean_level_button_grey"
 let MAIN_MENU_BUTTON_GRAY_5 = "utreg_level_button_grey"
 let LEVEL_UNLOCK_GUARD = 100
+let FLAG_FREQUENCY = 100
