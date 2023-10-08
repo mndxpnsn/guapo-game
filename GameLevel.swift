@@ -68,6 +68,8 @@ class GameLevel {
     var flag_num = 1
     var num_lives = NUM_LIVES
     
+    var hit_bird = false
+    
     var scene = SKScene()
 
     func didMove(scene: SKScene, id : Int) {
@@ -259,16 +261,20 @@ class GameLevel {
         play_misty_guard = defaults.integer(forKey: String(level_id) + MISTY_GUARD)
         flag_num = defaults.integer(forKey: String(level_id) + FLAG_NUM)
         num_lives = defaults.integer(forKey: String(level_id) + NUM_LIVES_STR)
-        
-        for j in 0..<num_lives {
-            let life_image = SKSpriteNode(imageNamed: HEART_IMAGE_STR)
-            life_image.setScale(1)
-            life_image.size = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
-            let size_loc = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
-            life_image.position = CGPoint(x: scene.size.width / 2 + CGFloat(j) * size_loc.width + 5, y: CGFloat(scene.size.height * 0.75) - size_loc.height)
-            life_image.zPosition = z_pos_lives
-            life_image.removeFromParent()
-            scene.addChild(life_image)
+        if num_lives > 0 {
+            for j in 0..<num_lives {
+                let life_image = SKSpriteNode(imageNamed: HEART_IMAGE_STR)
+                life_image.setScale(1)
+                life_image.size = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
+                let size_loc = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
+                life_image.position = CGPoint(x: scene.size.width / 2 + CGFloat(j) * size_loc.width + 5, y: CGFloat(scene.size.height * 0.75) - size_loc.height)
+                life_image.zPosition = z_pos_lives
+                life_image.removeFromParent()
+                scene.addChild(life_image)
+            }
+        }
+        else {
+            num_lives = 0
         }
     }
     
@@ -510,15 +516,17 @@ class GameLevel {
     
     func add_lives() {
         
-        for j in 0..<num_lives {
-            let life_image = SKSpriteNode(imageNamed: HEART_IMAGE_STR)
-            life_image.setScale(1)
-            life_image.size = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
-            let size_loc = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
-            life_image.position = CGPoint(x: scene.size.width / 2 + CGFloat(j) * size_loc.width + 5, y: CGFloat(scene.size.height * 0.75) - size_loc.height)
-            life_image.zPosition = z_pos_lives
-            life_image.removeFromParent()
-            scene.addChild(life_image)
+        if num_lives > 0 {
+            for j in 0..<num_lives {
+                let life_image = SKSpriteNode(imageNamed: HEART_IMAGE_STR)
+                life_image.setScale(1)
+                life_image.size = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
+                let size_loc = CGSize(width: scene.size.width / 28, height: scene.size.height / 28)
+                life_image.position = CGPoint(x: scene.size.width / 2 + CGFloat(j) * size_loc.width + 5, y: CGFloat(scene.size.height * 0.75) - size_loc.height)
+                life_image.zPosition = z_pos_lives
+                life_image.removeFromParent()
+                scene.addChild(life_image)
+            }
         }
     }
     
@@ -895,16 +903,21 @@ class GameLevel {
                     play_sound_api(scene: scene, sound: [endSound])
                 }
                 
-                num_lives = num_lives - 1
+                self.currentGameState = gameState.afterGame
+                
+                if !hit_bird {
+                    hit_bird = true
+                    num_lives = num_lives - 1
+                }
+                
                 defaults.set(num_lives, forKey: String(level_id) + NUM_LIVES_STR)
                 
                 if(num_lives < 0) {
+                    num_lives = 0
+                    defaults.set(num_lives, forKey: String(level_id) + NUM_LIVES_STR)
                     game_over()
                 }
-                
-                self.currentGameState = gameState.afterGame
-                
-                if(num_lives >= 0) {
+                else if(num_lives >= 0) {
                     show_restart_continue()
                 }
             }
@@ -951,16 +964,21 @@ class GameLevel {
                     play_sound_api(scene: scene, sound: [endSound])
                 }
                 
-                num_lives = num_lives - 1
+                self.currentGameState = gameState.afterGame
+                
+                if !hit_bird {
+                    hit_bird = true
+                    num_lives = num_lives - 1
+                }
+                
                 defaults.set(num_lives, forKey: String(level_id) + NUM_LIVES_STR)
                 
                 if(num_lives < 0) {
+                    num_lives = 0
+                    defaults.set(num_lives, forKey: String(level_id) + NUM_LIVES_STR)
                     game_over()
                 }
-                
-                self.currentGameState = gameState.afterGame
-                
-                if(num_lives >= 0) {
+                else if(num_lives >= 0) {
                     if(level_id == LEVEL_ID_1) {
                         show_restart_continue()
                     }
