@@ -1034,7 +1034,7 @@ class GameLevel {
             }
         }
         
-        if gameScore >= flag_num * flag_freq && flag_popup_frame_counter <= num_frames_flag_popup {
+        if gameScore >= flag_num * flag_freq && flag_popup_frame_counter <= num_frames_flag_popup && num_lives > 0 {
             
             flag_popup_frame_counter += 1
             
@@ -1043,7 +1043,7 @@ class GameLevel {
                 play_flag_pop_up = false
             }
             
-            flag.set_z_pos(z_pos: 100)
+            flag.set_z_pos(z_pos: z_pos_flag)
             
             if start_thread {
                 start_thread = false
